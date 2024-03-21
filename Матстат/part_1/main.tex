@@ -103,7 +103,9 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
    1, x \ge \theta / 2, \\
    0, x < \theta / 2 \\
    \end{cases}
-    \ra \xi_n \tod \frac{\theta}{2} \lra \xi_n \toP \frac{\theta}{2} \ra $ по теореме о наследовании сходимости получаем, что $\overline{X} + \xi_n \toP \theta \ra $ оценка состоятельная  
+    \ra \xi_n \tod \frac{\theta}{2} \lra \xi_n \toP \frac{\theta}{2} \ra $ по теореме о наследовании сходимости получаем, что $\overline{X} + \xi_n \toP \theta \ra $ оценка состоятельная \\
+    Докажем, что $X_{(n)} \toac \theta$. Заф. $\omega \in \Omega$, тогда последовательность $\{X_{(n)}(\omega)\}$ является неубывающей и ограниченной сверху $\ra \exists \xi(\omega) : \lim_{n \to \infty} X_{(n)}(\omega) = \xi(\omega) \ra$ оценка сильно состоятельная, но $X_{(n)} \toP \theta \ra \xi(\omega) = \theta$. Аналогично доказывается, что $X_{(1)} \toac 0$. \\
+    Тогда по теореме о наследовании сходимости оценка является сильно состоятельной
 
     \item Найдем $p_{(n + 1)X_{(1)}}: F_{X_{(1)}}(x) = 1 - (1 - F_{X_1}(x))^n \ra F_{(n + 1)X_{(1)}}(x) =  1 - (1 - F_{X_1}(\frac{x}{n + 1}))^n \ra p_{(n + 1)X_{(1)}}(x) = n\left(1 - \frac{x}{(n + 1)\theta}\right)^{n - 1} \frac{1}{\theta}I_{[0, (n + 1)\theta]}(x)$ \\
     $\E X_{(1)} = \int_{0}^{\theta}xn\left(1 - \frac{x}{\theta}\right)^{n - 1}\frac{1}{\theta}dx = \theta n\int_{0}^{1}t(1 - t)^{n - 1}dt = \theta nB(2, n) = \theta n\frac{\Gamma(2)\Gamma(n)}{\Gamma(n + 2)} = \theta n\frac{1!(n - 1)!}{(n + 1)!} = \frac{\theta}{n + 1} \ra $ оценка $X_{(1)}(n + 1) $ несмещенная. \\
@@ -126,8 +128,8 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
     1, x \ge 0 \\
     0, x < 0
     \end{cases}
-    $, то $X_{(1)} \toP 0 \ra$ по теореме о наследовании сходимости оценка является состоятельной. 
-    \item Оценка явлется несмещенной и состоятельной
+    $, то $X_{(1)} \toP 0 \ra$ по теореме о наследовании сходимости оценка является сильно состоятельной.
+    \item Оценка явлется несмещенной и  сильно состоятельной (по модулю предыдущих выкладок это очев).
   \end{enumerate}
 }
 \problem{
@@ -183,7 +185,10 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
 \problem{
 Пусть $X_1 \sim R(0, \theta)$. Найдите несмещённую оценку параметра $1/\theta$.
 }
-\solution{~}
+\solution{
+  Для $n = 1 \text{ } \E g(X_1) = \int_{0}^{\theta} \frac{1}{\theta} g(x) dx = \frac{1}{\theta} \ra \forall \theta \int_{0}^{\theta} g(x)dx = 1$, что невозможно. \\
+  Для $n \ge 2$ пусть $\hat{\theta} = \frac{1}{4\sqrt{X_1X_2}}$. Тогда \[\E \hat{\theta} = \int_{[0, \theta]^2}\frac{1}{\theta^2} \frac{1}{2\sqrt{x_1}} \frac{1}{2\sqrt{x_2}} dx_1 dx_2 = \frac{1}{\theta}\]
+}
 \problem{
 Найдите несмещенную оценку $\lambda^3$ по выборке $X_1, \dots, X_n$ из распределения $Pois(\lambda)$.
 }
@@ -208,7 +213,11 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
 Пусть $\theta^*_1(X)$ и $\theta^*_2(X)$ — две наилучшие в среднеквадратичном подходе оценки параметра $\theta$ в классе всех оценок с од-
 ним и тем же математическим ожиданием $\tau(\theta)$. Докажите, что тогда для любого $\theta$ они совпадают почти наверное.
 }
-\solution{~}
+\solution{
+$\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $\E \theta^*_1(X) = \E \theta^*_2(X) \ra \E (\theta^*_1(X))^2 = \E (\theta^*_2(X))^2 $
+  . Предположим, $\theta^*_1(X) \text{ и } \theta^*_2(X)$ не совпадают почти наверное. Тогда $\E(\theta^*_1(X) - \theta^*_2(X))^2 > 0 \ra \E \theta^*_1(X) \theta^*_2(X) < \E (\theta^*_1(X))^2$.  Тогда \[\E(\theta^*_1(X) - \theta)^2 - \E \left(\frac{\theta^*_1(X) + \theta^*_2(X)}{2} - \theta\right)^2 = \E (\theta^*_1(X))^2 - \frac{\E (\theta^*_1(X))^2}{2} + \frac{\E \theta^*_1(X) \theta^*_2(X)}{2} =\] \[ \frac{1}{2}(\E (\theta^*_1(X))^2 - \E \theta^*_1(X) \theta^*_2(X)) > 0 \ra \]
+  оценка $\frac{\theta^*_1(X) + \theta^*_2(X)}{2}$ лучше в данном классе.
+}
 \problem{
 Пусть $X_1 , \dots, X_n$ - выборка из нормального распределения с параметрами $(a, \sigma^2)$. Найдите эффективную оценку
 а) параметра a, если $\sigma$ известно;
@@ -221,7 +230,11 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
 \[p_{\theta}(x) = \frac{\exp\{\theta - x\}}{(1 + \exp\{\theta - x\})^2}\]
 Найдите информацию Фишера $i(\theta)$ одного наблюдения в этой модели.
 }
-\solution{~}
+\solution{
+  \[u_{\theta}(x) = \frac{1 + e^{2\theta - 2x}}{(1 + e^{\theta - x})^2} \ra i(\theta) = \int_{\R} \frac{(1 + e^{2\theta - 2x})^2}{(1 + e^{\theta - x})^4} \frac{e^{\theta - x}}{(1 + e^{\theta - x})^2} dx = \int_{0}^{+\infty} \frac{(1 + t^2)^2}{(1 + t)^6} dt =\]
+  \[ \int_{1}^{+\infty} \frac{(1 + (u - 1)^2)^2}{u^6}du = \int_{1}^{+\infty} \frac{u^4 - 4u^3+ 8u^2 - 8u + 4}{u^6}du =\]
+  \[\left.\left(-1u^{-1} - 4 \frac{u^{-2}}{-2} + 8\frac{u^{-3}}{-3} - 8 \frac{u^{-4}}{-4} + 4 \frac{u^{-5}}{-5}\right)\right|_{1}^{+\infty} = -\left(-1+ 2 - \frac{8}{3} + 2- \frac{4}{5}\right) = \frac{7}{15}\]
+}
 \problem{
 С помощью метода моментов построить оценку параметра $\theta$ для следующих распределений:
 а)$Bern(\theta)$, б)$Pois(\theta)$, в)$\ND{\theta}{1}$, г)$\exp(\theta)$.
@@ -239,7 +252,7 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
   \item $\D X_1 = \theta(1 - \theta)$
   \item $\D X_1 = \theta$
   \item $\D X_1 = 1$
-  \item $\E X_1 = 1 / \theta \ra \hat{\theta} = \frac{1}{\overline{X}}$. По задаче 10 известно, что оценка асимптотически нормальная с ас-й дисперсией $\theta^2. \psi_{\overline{X}} = \psi_{X_1}^n(t/n) = \left(1 - \frac{it}{n\theta}\rigth)^{-n} \ra $
+  \item $\E X_1 = 1 / \theta \ra \hat{\theta} = \frac{1}{\overline{X}}$. По задаче 10 известно, что оценка асимптотически нормальная с ас-й дисперсией $\theta^2 \psi_{\overline{X}} = \psi_{X_1}^n(t/n) = \left(1 - \frac{it}{n\theta}\right)^{-n} \ra $
 \end{enumerate}
 }
 \problem{
