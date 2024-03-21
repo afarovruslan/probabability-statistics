@@ -1,0 +1,290 @@
+\input{preamble}
+
+\begin{document}
+	\input{titlepage}
+	\section{Виды сходимости случайных векторов}
+\problem{
+Пусть $X_1,\dots, X_n$ — независимые одинаково распределенные случайные величины с распределением 
+$Exp(\alpha),\ \alpha > 0$.\\
+Рассмотрим статистику $Y=\frac{1}{n}\sum\limits_{i=1}^n X_i$.
+Найдите такие константы $a(\alpha)$ и $\sigma^2(\alpha)>0$, что выполнено
+$$
+\sqrt{n}(Y\sin Y - a(\alpha))\xrightarrow[]{\text{d}}\mathcal{N}(0,\sigma^2(\alpha)),\text{ при }n\rightarrow \infty
+$$
+}
+\solution{~
+ По закону больших чисел $Y\tod\frac{1}{\alpha}$. По ЦПТ $\sqrt{n}\left(Y - \frac{1}{\alpha}\right) \tod \ND{0}{\frac{1}{\alpha^2}}$.
+ Воспользуемся теоремой 1.4 из C2. Положим $h(x) = x\sin x, b_n = \frac{1}{\sqrt{n}}, \xi_n = \sqrt{n}\left(Y - \frac{1}{\alpha}\right), a = \frac{1}{\alpha}$. Тогда получим, что $\frac{h(a + \xi_nb_n) - h(a)}{b_n} = \sqrt{n}\left(Y\sin Y - \frac{1}{\alpha}\sin{\frac{1}{\alpha}}\right) \tod h'(a)\ND{0}{\frac{1}{\alpha^2}} \sim \left(\sin{\frac{1}{\alpha}} + \frac{1}{\alpha}\cos{\frac{1}{\alpha}}\right)\ND{0}{\frac{1}{\alpha^2}} \sim \ND{0}{\left(\frac{1}{\alpha}\sin{\frac{1}{\alpha}} + \frac{1}{\alpha^2}\cos{\frac{1}{\alpha}}\right)^2} \ra a(\alpha) = \frac{1}{\alpha}\sin{\frac{1}{\alpha}}, \sigma(\alpha) = \frac{1}{\alpha}\sin{\frac{1}{\alpha}} + \frac{1}{\alpha^2}\cos{\frac{1}{\alpha}}$
+}
+\problem{
+Пусть $\{\xi_n\}_{n=1}^\infty,\{\eta_n\}_{n=1}^\infty,\{\zeta\}_{n=1}^\infty $- последовательности случайных величин.
+ Докажите, что если $\xi_n\xrightarrow[]{d}\xi,|\xi_n-\eta_n|\leq\zeta_n|\xi_n|,\ \zeta_n\xrightarrow[]{P}0,$ то $\eta_n\xrightarrow[]{d}\xi$
+ }
+\solution{
+	\lemma{
+	Пусть $\xi_n$, посл-ть случайных величин, $\xi_n \ge 0, \xi_n \tod \xi$. Тогда 
+	}
+}
+\problem{
+Задан набор независимых одинаково распределённых случайных величин $X_1,\dots,X_n$ с распределением $\mathcal{N}(0,\sigma^2)$. 
+Рассмотрим статистики $Y=\frac{1}{n}\sum\limits_{i=1}^n |X_i|,Z=\frac{1}{n}\sum\limits_{i=1}^n X_i^2$, $T=\sqrt{\frac{2}{\pi}}Z/Y$
+Найдите предел сходимости по распределению выражения $\sqrt{n}(T-\sigma)$
+}
+\solution{~
+	Найдем необходимые моменты и ковариации:
+	\[\E|X_i| = \int_{\R} |x|p_{X_i}(x)dx = 2\int_{0}^{+\infty}x\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{x^2}{2\sigma^2}} dx = \frac{2}{\sqrt{2\pi\sigma^2}}\int_{0}^{+\infty} -\frac{\sigma^2}{x}xd(e^{-\frac{x^2}{2\sigma^2}}) = \left.\sigma\sqrt{\frac{2}{\pi}}e^{-\frac{x^2}{2\sigma^2}}\right\vert_{+\infty}^{0} \] \[= \sigma\sqrt{\frac{2}{\pi}}\]
+	\[\E X_i^2 = \D X_i + (\E X_i)^2 = \sigma^2\]
+	\[\E|X_i|X_i^2 = 2\int_{0}^{+\infty} x^3 \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{x^2}{2\sigma^2}}dx = -2\sigma^2\left(\left.x^2p_{X_i}(x)\right\vert_{0}^{+\infty} - 2\int_{0}^{+\infty}xp_{X_i}(x)dx\right) = 2\sigma^2 \E |X_i| = 2\sigma^3\sqrt{\frac{2}{\pi}}\]
+	\[\E X_i^4 = -\sigma^2\left(0 - \int_{\R} p_{X_i}(x)3x^2dx \right) = 3\sigma^2\E X_i^2 = 3\sigma^4\]
+	\[ \D |X_i| = \sigma^2 - \sigma^2 \frac{2}{\pi} = \sigma^2\frac{\pi - 2}{\pi}, \D X_i^2 = \E X_i^4 - (\E X_i^2)^2 = 3\sigma^4 - \sigma^4 = 2\sigma^4 \]
+	\[ cov(|X_i|, X_i^2) = \E |X_i|X_i^2 - \E |X_i| \E X_i^2 = 2\sigma^3\sqrt{\frac{2}{\pi}} - \sigma\sqrt{\frac{2}{\pi}} \sigma^2 = \sigma^3\sqrt{\frac{2}{\pi}}\]
+	Положим $\eta_i = (|X_i|, X_i^2)^T$, тогда $\D\eta_i = 
+	\begin{pmatrix}
+  \sigma^2\frac{\pi - 2}{\pi} & \sigma^3\sqrt{\frac{2}{\pi}} \\
+	\sigma^3\sqrt{\frac{2}{\pi}} & 2\sigma^4
+	\end{pmatrix}
+	$
+	Далее воспользуемся теоремой 1.4 для $\xi_n = \sum_{i = 1}^n \eta_i, h(x, y) = \sqrt{\frac{2}{\pi}}\frac{y}{x}, b_n = 1/\sqrt{n}, a = \E \eta_1 = (\sigma\sqrt{\frac{2}{\pi}}, \sigma^2)^T$.
+	Получим \[\sqrt{n}(T - \sigma) \tod (\nabla h|_a, \xi) \sim \ND{0}{\nabla h|_a^T \D\eta \nabla h|_a}\]
+	\[\nabla h = (-\sqrt{\frac{2}{\pi}}\frac{y}{x^2}, \sqrt{\frac{2}{\pi}}\frac{1}{x})^T \ra \nabla h|_a = (-\sqrt{\frac{\pi}{2}}, \frac{1}{\sigma})^T \ra \nabla h|_a^T \D\eta \nabla h|_a = \sigma^2 \left(\frac{\pi}{2} - 1\right)\]
+}
+\problem{
+Пусть $\xi,\xi_1,\xi_2,\dots$ - такие случайные величины, что $(\xi_n-\xi)^2\xrightarrow[]{P}0\ $при $n\rightarrow\infty$
+Показать, что $\xi_n^2\xrightarrow[]{P} \xi^2\ $при $n\rightarrow\infty$
+}
+\solution{
+	$(\xi_n-\xi)^2\xrightarrow[]{P}0\ \lra P(|\xi_n - \xi|^2 > \eps^2) = P(|\xi_n - \xi| > \eps) \to 0 \ra \xi_n \toP \xi$. Далее пользуемся теоремой о наследовании сходимости для $h(x) = x^2$
+}
+\problem{
+Пусть $\xi,\xi_1,\xi_2,\dots$ -  случайные величины. Привести пример, когда 
+\begin{enumerate}
+  \item $\xi_n\xrightarrow[]{L_2}\xi,\ \xi_n\centernot{\xrightarrow[]{\text{п.н.}}}\xi,\ n\rightarrow \infty$
+  
+  \item $\xi_n\xrightarrow[]{\text{п.н}}\xi,\ \xi_n\centernot{\xrightarrow[]{{L_2}}}\xi,\ n\rightarrow \infty$
+  \item $\xi_n\xrightarrow[]{d}\xi,\ \xi_n\centernot{\xrightarrow[]{P}}\xi,\ n\rightarrow \infty$
+\end{enumerate}
+}
+\solution{
+	\begin{enumerate}
+		\item 
+		\item 
+		\item Пусть $\xi \sim \ND{0}{1}, \xi_n = \xi$, тогда $\xi_n \tod -\xi$, но $P(|\xi_n + \xi| > \eps) = P(|\xi| > \eps / 2) \centernot{\xrightarrow[]{}} 0$
+	\end{enumerate}
+}
+\problem{
+Рассмотрим последовательность d-мерных случайных векторов $\overline{\xi}_n$.
+Доказать, что если при некотором $\overline{c}\in\mathbb{R}^d$ выполнено соотношение 
+$\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightarrow[]{P}\overline{c}$
+}
+\solution{
+	$\overline{\xi}_n \tod \overline{c} \ra \xi^i_n \tod c^i \forall i$. Тогда, если докажем, что $\xi \in \R, \xi \tod c \in \R \ra \xi \toP c$, то утверждение будет доказано, т. к. покомпонентная сх-ть по в-ти влечет сх-ть вектора.
+	Пусть $\xi_n \in \R, \xi_n \tod c \in \R $. Тогда $P(|\xi_n - c| < \eps) = P(c - \eps < \xi_n < c + \eps) = F_{\xi_n}(c + \eps) - F_{\xi_n}(c - \eps + 0) \ge F_{\xi_n}(c + \eps) - F(c - \eps/2) \to 1 \ra \xi_n \toP c$
+}
+\section{Статистики и оценки. Построение и сравнение оценок}
+\problem{
+Пусть $X_1, \dots, X_n$ — выборка из распределения $R(0, \theta)$(равномерного распределения на отрезке $[0, \theta]$). Проверьте на несмещенность, состоятельность и сильную состоятельность следующие оценки параметра $\theta: 2\overline{X}, \overline{X} + X_{(n)}/2,
+(n + 1)X_{(1)} , X_{(1)} + X_{(n)} , \frac{n + 1}{n}X_{(n)} $.
+}
+\solution{~
+\begin{enumerate}
+	\item 
+   $\E (2\overline{X}) = 2\E X_1 = 2 \frac{\theta - 0}{2} = \theta \ra $ оценка несмещенна. \\
+   По УЗБЧ $2\overline{X} \toac \theta \ra$ оценка сильно состоятельна.
+   \item
+   Пусть $X_{(n)} / 2 = \xi_n$. Найдем $p_{\xi_n}: F_{\xi_n}(x) = F_{X_1}^n(2x)$. $p_{\xi_n}(x) = \frac{d}{dx}F_{\xi_n}(x) = nF_{X_1}^{n - 1}(2x)p_{X_1}(2x) * 2 = n2^n \frac{x^{n - 1}}{\theta^n}I_{[0, \frac{\theta}{2}]}(x)$. $\E \xi_n = \int_{0}^{\theta/2} xn2^n \frac{x^{n - 1}}{\theta^n} dx = \left.n2^n\frac{x^{n + 1}}{\theta^n(n + 1)}\right\vert_{0}^{\frac{\theta}{2}} = \frac{n}{2n+ 2}\theta \ra \E(\overline{X} + X_{(n)} / 2) = \frac{\theta}{2}\left(1 + \frac{n}{n + 1}\right) \ne \theta \ra $ оценка является смещенной \\
+   $F_{\xi_n}(x) =
+   \begin{cases}
+   1, x \ge \theta / 2, \\
+   (\frac{2x}{\theta})^n, 0 < x < \theta / 2 \\
+   0, x \le 0
+   \end{cases}
+   $, тогда при $n \to \infty$ получаем $F(x) = 
+   \begin{cases}
+   1, x \ge \theta / 2, \\
+   0, x < \theta / 2 \\
+   \end{cases}
+    \ra \xi_n \tod \frac{\theta}{2} \lra \xi_n \toP \frac{\theta}{2} \ra $ по теореме о наследовании сходимости получаем, что $\overline{X} + \xi_n \toP \theta \ra $ оценка состоятельная  
+
+    \item Найдем $p_{(n + 1)X_{(1)}}: F_{X_{(1)}}(x) = 1 - (1 - F_{X_1}(x))^n \ra F_{(n + 1)X_{(1)}}(x) =  1 - (1 - F_{X_1}(\frac{x}{n + 1}))^n \ra p_{(n + 1)X_{(1)}}(x) = n\left(1 - \frac{x}{(n + 1)\theta}\right)^{n - 1} \frac{1}{\theta}I_{[0, (n + 1)\theta]}(x)$ \\
+    $\E X_{(1)} = \int_{0}^{\theta}xn\left(1 - \frac{x}{\theta}\right)^{n - 1}\frac{1}{\theta}dx = \theta n\int_{0}^{1}t(1 - t)^{n - 1}dt = \theta nB(2, n) = \theta n\frac{\Gamma(2)\Gamma(n)}{\Gamma(n + 2)} = \theta n\frac{1!(n - 1)!}{(n + 1)!} = \frac{\theta}{n + 1} \ra $ оценка $X_{(1)}(n + 1) $ несмещенная. \\
+    $F_{(n + 1)X_{(1)}}(x) = 
+    \begin{cases}
+     1, x \ge (n + 1)\theta, \\
+     1 - \left(1 - \frac{x}{(n + 1)\theta}\right)^n, 0 < x < (n + 1)\theta \\
+     0, x \le 0
+    \end{cases}
+    $ при $n \to \infty$ получим $
+    F(x) =
+    \begin{cases}
+    1 - e^{-\frac{x}{\theta}}, x \ge 0, \\
+    0, x < 0
+    \end{cases} \ra 
+    $ оценка не состоятельна и сл-но не сильно состоятельна
+    \item $\E (X_{(1)} + X_{(n)}) = \frac{\theta}{n + 1} + \frac{\theta n}{n + 1} = \theta \ra $ оц-ка не смещена.
+    Т. к. $F_{X_{(1)}} \to F(x) = 
+    \begin{cases}
+    1, x \ge 0 \\
+    0, x < 0
+    \end{cases}
+    $, то $X_{(1)} \toP 0 \ra$ по теореме о наследовании сходимости оценка является состоятельной. 
+    \item Оценка явлется несмещенной и состоятельной
+  \end{enumerate}
+}
+\problem{
+Пусть $\hat{\theta}_n(X)$ — асимптотически нормальная оценка параметра $\theta$ с асимптотической дисперсией $\sigma^2(\theta)$. Докажите, что тогда $\hat{\theta}_n(X)$ является состоятельной оценкой $\theta$.
+}
+\solution{
+	Пусть $\xi_n = \frac{1}{\sqrt{n}}$. $\xi_n \toP 0$ По теореме о наследовании сходимости $\xi_n\sqrt{n}(\hat{\theta}_n(X) - \theta) \toP 0 \ra \hat{\theta}_n(X) \toP \theta$
+}
+\problem{
+Пусть $X_1, \dots, X_n$ - выборка из распределения с параметром $\sigma^2$. Пусть, кроме того $D_{\sigma^2}X_1 = \sigma^2$ Докажите, что статистика $s = 1/n\sum_{i=1}^n (X_i - \overline{X})^2$ равна $\overline{X^2} - \left(\overline{X}\right)^2$ и является состоятельной оценкой $\sigma^2$. Является ли она несмещенной оценкой того же параметра?
+}
+\solution{
+	$	1/n\sum_{i=1}^n (X_i - \overline{X})^2 = 1 / n \sum_{i = 1}^n (X_i^2 - 2X_i\overline{X} + \left(\overline{X}\right)^2) = 1 / n \sum_{i = 1}^n X_i^2 - 2\overline{X}1 / n \sum_{i = 1}^n X_i - \left(\overline{X}\right)^2 = \overline{X^2} - 2\left(\overline{X}\right)^2 + \left(\overline{X}\right)^2 = \overline{X^2} - \left(\overline{X}\right)^2$. Подставляя в равентсво вместо $X_i \text{  }X_i - \E X_i$ мы получим, что данная оценка равна $\overline{(X - \E X_1)^2} - (\overline{X} - \E X_1)^2 \toac \D X_1$ по УЗБЧ. Но $\E s = \D X_1 - \D \overline{X} = \D X_1 - \frac{1}{n}\D X_1 \ne \D X_1 \ra $ оценка смещена 
+}
+\problem{
+Пусть $X_1, \dots, X_n$ — выборка из экспоненциального распределения с параметром $\theta$. Покажите, что $\forall k \in \N$ статистика $\sqrt[k]{k!/\overline{X^k}}$ является асимптотически нормальной оценкой параметра $\theta$. Найдите ее асимптотическую дисперсию.
+}
+\solution{
+	\[\psi_{X_1}(t) = \E e^{itX_1} = \int_{0}^{+\infty} \theta e^{-\theta x} e^{itx}dx =  \int_{0}^{+\infty} \theta e^{x(it - \theta)}dx = -\frac{\theta}{it - \theta} = \left(1 - \frac{it}{\theta}\right)^{-1}\] \[ \frac{d^k}{dt^k}\psi_{X_1}(t) = \frac{i^k}{\theta^k}k!\left(1 - \frac{it}{\theta}\right)^{-k - 1} \ra \E X_1^k = \frac{k!}{\theta^k}\]. Пользуясь теоремой 1.4 из C2 для $h(x) = \sqrt[k]{k!/x}, \xi_n = \sqrt{n}\left(\overline{X^k} - \frac{k!}{\theta^k}\right), b_n = 1 /\sqrt{n}$ и $a = \frac{k!}{\theta^k}. h'(x) = (\sqrt[k]{k!}x^{-\frac{1}{k}})' = -\frac{1}{k}\sqrt[k]{\frac{k!}{x^{k + 1}}} \ra h'(a) = -\frac{\theta^{k + 1}}{k!k} \ra \sqrt{n}\left(\sqrt[k]{k!/\overline{X^k}} - \theta\right) \tod \ND{0}{\sigma^2(\theta)}$, где $\sigma^2(\theta) = \left(\frac{\theta^k}{kk!}\right)^2$
+}
+\problem{
+Пусть $X_1 , \dots , X_n$ - выборка из распределения с плотностью
+\[p_{\alpha, \beta}(x) = \frac{1}{\alpha}e^{(\beta - x)/\alpha}I_{[\beta, +\infty)}(x) \]
+где $\theta = (\alpha, \beta)$ — двумерный параметр. Найдите для $\theta$ оценку максимального правдоподобия. Докажите, что полученная
+для $\alpha$ оценка $\hat{\alpha}_n$ является асимптотически нормальной, и найдите ее асимптотическую дисперсию.
+}
+\solution{Пусть $\theta = (\alpha, \beta)$
+  \[ \LL(x, \theta) = \frac{1}{\alpha^n}e^{\sum_{i = 1}^n \frac{\beta - x_i}{\alpha}} I_{[\beta, +\infty]}(x_1, \dots, x_n) = \frac{1}{\alpha^n}e^{\sum_{i = 1}^n \frac{\beta - x_i}{\alpha}} I_{[\beta, +\infty]}(\min(x_1, \dots, x_n))\]
+  Для того, чтобы произведение было не 0, должно выплняться $\beta \le \min(x_1, \dots, x_n)$, в то же время $\LL(x, \theta) \xrightarrow[\beta]{} \max_{\beta} \lra \sum_{i = 1}^n \beta - x_i \xrightarrow[\beta]{} \max \ra \hat{\beta} = X_{(1)}$. $l(x, \theta) = \sum_{i = 1}^n \frac{\beta - x_i}{\alpha} - n\ln \alpha \ra \hat{\alpha_n} = \sum_{i = 1}^n\frac{X_i - \beta}{n} = \overline{X} - X_{(1)}$ в силу того, что функция $f(x) = \frac{c}{x} - \ln x, c \le 0$ имеет глобальный максимум в т. $x = -c$ 
+}
+\problem{
+Найдите оценку максимального правдоподобия для параметра сдвига в распределении Коши, т.е. плотность равна
+\[p_{\theta}(x) = \frac{1}{\pi(1 + (x - \theta)^2)}\]
+если выборка состоит из а) одного наблюдения, б) двух на-
+блюдений (т.е. $n = 1, 2$).
+}
+\solution{~
+  \begin{enumerate}[label=\alph*]
+  \item $\LL(x, \theta) = \frac{1}{1 + (x - \theta)^2} \ra \hat{\theta} = X_1$
+  \item $l(x, \theta) = -\ln(1 + (x_1 - \theta)^2) - \ln(1 + (x_2 - \theta)^2) \ra \frac{dl}{dx} = \frac{(x_1 + x_2 - 2\theta)(\theta^2 - \theta x_1 - \theta x_2 + x_1 x_2 + 1)}{(1 + (x_1 - \theta)^2)(1 + (x_2 - \theta)^2)}$. Получаем 2 случая:
+  \begin{enumerate}
+    \item $|x_1 - x_2| \le 2$ \\
+    Тогда уравенение правдоподобия имеет единственный корень $\frac{x_1 + x_2}{2}$. Легко заметить, что в этой точке достигается максимум всей функции
+    \item $|x_1 - x_2| > 2$. Тогда уравнение имеет 3 корня и максимум достигается в одной из точек $\frac{x_1 + x_2}{2} + \sqrt{\left(\frac{x_1 - x_2}{2}\right)^2 - 1},\frac{x_1 + x_2}{2} - \sqrt{\left(\frac{x_1 - x_2}{2}\right)^2 - 1}$. Легко убедиться, что значение функции правдободобия совпадают на них
+  \end{enumerate}
+    \[ \text{Тогда оценка максимального правдободобия } \hat{\theta} = \\
+    \begin{cases}
+    \frac{X_1 + X_2}{2}, |X_1 - X_2| \le 2 \\
+    \frac{X_1 + X_2}{2} + \sqrt{\left(\frac{X_1 - X_2}{2}\right)^2 - 1}, |X_1 - X_2| > 2
+    \end{cases} \]
+  \end{enumerate}
+}
+\problem{
+Пусть $X_1 \sim R(0, \theta)$. Найдите несмещённую оценку параметра $1/\theta$.
+}
+\solution{~}
+\problem{
+Найдите несмещенную оценку $\lambda^3$ по выборке $X_1, \dots, X_n$ из распределения $Pois(\lambda)$.
+}
+\solution{
+  $\phi_{X_1}(t) = \E e^{tX_1} = e^{\lambda (e^t - 1)} \ra \frac{d}{dt}\phi_{X_1}(t) = \lambda e^{t + \lambda(e^t - 1)}, \frac{d^2}{dt^2}\phi_{X_1}(t) = \lambda e^{t + \lambda(e^t - 1)} + \lambda^2 e^{2t + \lambda(e^t - 1)}, \frac{d^3}{dt^3}\phi_{X_1}(t) = \lambda e^{t + \lambda(e^t - 1)} + \lambda^2 e^{2t + \lambda(e^t - 1)} + \lambda^2(2 + \lambda e^t)e^{2t + \lambda(e^t - 1)} \ra \E X_1 = \lambda, \E X_1^2 = \lambda + \lambda^2, \E X_1^3 = \lambda^3 + 3\lambda^2 + \lambda \ra \hat{\lambda} = X_1^3 - 3X_1^2 + 2X_1$
+}
+\problem{
+Пусть $X_1, \dots, X_n$ — выборка из равномерного распределения на отрезке $[0, \theta]$. Сравните следующие оценки параметра $ \theta $ в равномерном подходе с квадратичной функцией потерь: $\theta: 2\overline{X},
+(n + 1)X_{(1)}, \frac{n + 1}{n}X_{(n)} $.
+}
+\solution{
+  Поскольку все оценки несмещены, фактически нужно сравнить дисперсии этих случайных величин.
+  \begin{enumerate} 
+
+    \item $\D (2 \overline{X}) = \frac{4}{n} \D X_1 =  \frac{\theta^2}{3}$.
+    \item $\D (n + 1)X_{(1)} = (n + 1)^2 \D X_{(1)}. \E X_{(1)}^2 = \int_{0}^{\theta}x^2n\left(1 - \frac{x}{\theta}\right)^{n - 1}\frac{1}{\theta}dx = n\theta^2\int_{0}^{1}t^2(1 - t)^{n - 1}dt = \theta^2 nB(3, n) = \theta^2 n\frac{2!(n - 1)!}{(n + 2)!} = \frac{2\theta^2}{(n + 1)(n + 2)} \ra \D X_1 = \frac{2\theta^2}{(n + 1)(n + 2)} - \frac{\theta^2}{(n + 1)^2} = \frac{n\theta^2}{(n + 1)^2(n + 2)} \ra \\ \D (n + 1)X_{(1)} = \theta^2 \left(1 - \frac{2}{n + 2}\right)$
+    \item $\E X_{(n)}^2 = \int_{0}^{\theta} nx^2 \frac{x^{n - 1}}{\theta^n}dx = \theta^2 \frac{n}{n + 2} \ra \D X_{(n)} = \theta^2n \left( \frac{1}{(n + 2)} - \frac{n}{(n + 1)^2}\right) = \theta^2 \frac{n}{(n + 1)^2(n + 2)} \ra \D \frac{n + 1}{n}X_{(n)} = \frac{\theta^2}{(n + 1)(n + 2)}$
+  \end{enumerate}
+  Таким образом, $3_{\text{оц}} \text{ лучше } 2_{\text{оц}} \text{ лучше } 1_{\text{оц}}$
+}
+\problem{
+Пусть $\theta^*_1(X)$ и $\theta^*_2(X)$ — две наилучшие в среднеквадратичном подходе оценки параметра $\theta$ в классе всех оценок с од-
+ним и тем же математическим ожиданием $\tau(\theta)$. Докажите, что тогда для любого $\theta$ они совпадают почти наверное.
+}
+\solution{~}
+\problem{
+Пусть $X_1 , \dots, X_n$ - выборка из нормального распределения с параметрами $(a, \sigma^2)$. Найдите эффективную оценку
+а) параметра a, если $\sigma$ известно;
+б) параметра $\sigma^2$ , если a известно.
+Вычислите информацию Фишера одного наблюдения в обоих случаях
+}
+\solution{~}
+\problem{
+Пусть $X_1, \dots, X_n$ — выборка из логистического распределения со сдвигом $\theta$, имеющего плотность
+\[p_{\theta}(x) = \frac{\exp\{\theta - x\}}{(1 + \exp\{\theta - x\})^2}\]
+Найдите информацию Фишера $i(\theta)$ одного наблюдения в этой модели.
+}
+\solution{~}
+\problem{
+С помощью метода моментов построить оценку параметра $\theta$ для следующих распределений:
+а)$Bern(\theta)$, б)$Pois(\theta)$, в)$\ND{\theta}{1}$, г)$\exp(\theta)$.
+Является ли данная оценка:
+\begin{enumerate}
+  \item несмещенной?
+  \item состоятельной?
+  \item сильно состоятельной?
+  \item асимптотически нормальной?
+\end{enumerate}
+}
+\solution{
+  В первых 3 случаях оценка $\hat{\theta} = \overline{X} $ является несмещенной, состоятельной и сильно состоятельной по УЗБЧ. По ЦПТ также она явлется асимптотически нормальной с асимптотической дисперсией равной дисперсии этой случайной величины, то есть 
+  \begin{enumerate}[label=\alph*]
+  \item $\D X_1 = \theta(1 - \theta)$
+  \item $\D X_1 = \theta$
+  \item $\D X_1 = 1$
+  \item $\E X_1 = 1 / \theta \ra \hat{\theta} = \frac{1}{\overline{X}}$. По задаче 10 известно, что оценка асимптотически нормальная с ас-й дисперсией $\theta^2. \psi_{\overline{X}} = \psi_{X_1}^n(t/n) = \left(1 - \frac{it}{n\theta}\rigth)^{-n} \ra $
+\end{enumerate}
+}
+\problem{
+Решить предыдущую задачу использую вместо метода моментов метод максимального правдоподобия.
+}
+\solution{~}
+\problem{
+Рассмотрим распределения Коши с плотностью $p_{\theta}(x) = \frac{1}{\pi(1 + (x - \theta)^2)}$. С помощью выборочной медианы построить асимптотически нормальную оценку для $\theta^2$ и найти ее асимптотическую дисперсию.
+}
+\solution{~}
+\problem{
+Пусть $X_1, \dots, X_n$ — выборка из распределения:
+а)$Bern(\theta)$, б)$Pois(\theta)$, в)$\ND{\theta}{1}$, г)$\exp(\theta)$.
+Для каких функций существует эффективная оценка? Найти соответствующую эффективную оценку и количество информации (фишеровской), содежащейся в одном сообщении.
+}
+\solution{~}
+\section{Достаточные статистики. Полные статистики. Оптимальные оценки. }
+\problem{
+Приведите пример такого параметрического семейства распределений $P$ и нетривиальной неполной достаточной статистики $S(X_1 , \dots, X_n)$, где $X_1 , \dots, X_n$ — выборка из неизвестного распределения $P \in \mathcal{P}$, что размерность статистики $S$ равна 1.
+}
+\solution{~}
+\problem{
+Пусть  $X_1 , \dots, X_n$ - выборка из нормального распределения
+с параметрами $(a, \sigma^2)$, $a \in \R$, $\sigma > 0$. Найдите оптимальную оценку параметра $\theta = (a, \sigma^2)$.
+}
+\solution{~}
+\problem{
+Пусть $X_1 , \dots, X_n$ — выборка из нормального распределения с параметрами $(0, \theta^2)$. Найдите оптимальную оценку для $\theta$.
+}
+\solution{~}
+\problem{
+Пусть $X_1 , \dots, X_n$ — выборка из пуассоновского
+распределения с параметром $\theta > 0$. Найдите $\E\left(X_1^2 \left\vert \displaystyle \sum_{i = 1}^n X_i \right.\right)$.
+}
+\solution{~}
+\problem{
+С помощью критерия факторизации найти достаточную статистику для следующего семейства распределений:
+а)$Bern(\theta)$, б)$Pois(\theta)$, в)$\ND{\theta}{1}$, г)$\exp(\theta)$.
+Проверить, является ли полученная статистика полной.
+}
+\solution{~}
+\problem{
+Построить оптимальную оценку функции $\tau(\theta) = 5\theta^2 + 3\theta + 7$ для $Bern(\theta)$.
+}
+\solution{~}
+\problem{
+Построить оптимальную оценку функции $\tau(\theta) = \sqrt{\theta}$ для $\exp(\theta)$
+\end{document}
