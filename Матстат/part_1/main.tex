@@ -21,9 +21,7 @@ $$
  Докажите, что если $\xi_n\xrightarrow[]{d}\xi,|\xi_n-\eta_n|\leq\zeta_n|\xi_n|,\ \zeta_n\xrightarrow[]{P}0,$ то $\eta_n\xrightarrow[]{d}\xi$
  }
 \solution{
-	\lemma{
-	Пусть $\xi_n$, посл-ть случайных величин, $\xi_n \ge 0, \xi_n \tod \xi$. Тогда 
-	}
+	\todo{}
 }
 \problem{
 Задан набор независимых одинаково распределённых случайных величин $X_1,\dots,X_n$ с распределением $\mathcal{N}(0,\sigma^2)$. 
@@ -66,8 +64,8 @@ $$
 }
 \solution{
 	\begin{enumerate}
-		\item 
-		\item 
+		\item \todo{}
+		\item \todo{}
 		\item Пусть $\xi \sim \ND{0}{1}, \xi_n = \xi$, тогда $\xi_n \tod -\xi$, но $P(|\xi_n + \xi| > \eps) = P(|\xi| > \eps / 2) \centernot{\xrightarrow[]{}} 0$
 	\end{enumerate}
 }
@@ -158,7 +156,8 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
 }
 \solution{Пусть $\theta = (\alpha, \beta)$
   \[ \LL(x, \theta) = \frac{1}{\alpha^n}e^{\sum_{i = 1}^n \frac{\beta - x_i}{\alpha}} I_{[\beta, +\infty]}(x_1, \dots, x_n) = \frac{1}{\alpha^n}e^{\sum_{i = 1}^n \frac{\beta - x_i}{\alpha}} I_{[\beta, +\infty]}(\min(x_1, \dots, x_n))\]
-  Для того, чтобы произведение было не 0, должно выплняться $\beta \le \min(x_1, \dots, x_n)$, в то же время $\LL(x, \theta) \xrightarrow[\beta]{} \max_{\beta} \lra \sum_{i = 1}^n \beta - x_i \xrightarrow[\beta]{} \max \ra \hat{\beta} = X_{(1)}$. $l(x, \theta) = \sum_{i = 1}^n \frac{\beta - x_i}{\alpha} - n\ln \alpha \ra \hat{\alpha_n} = \sum_{i = 1}^n\frac{X_i - \beta}{n} = \overline{X} - X_{(1)}$ в силу того, что функция $f(x) = \frac{c}{x} - \ln x, c \le 0$ имеет глобальный максимум в т. $x = -c$ 
+  Для того, чтобы произведение было не 0, должно выплняться $\beta \le \min(x_1, \dots, x_n)$, в то же время $\LL(x, \theta) \xrightarrow[\beta]{} \max_{\beta} \lra \sum_{i = 1}^n \beta - x_i \xrightarrow[\beta]{} \max \ra \hat{\beta} = X_{(1)}$. $l(x, \theta) = \sum_{i = 1}^n \frac{\beta - x_i}{\alpha} - n\ln \alpha \ra \hat{\alpha_n} = \sum_{i = 1}^n\frac{X_i - \beta}{n} = \overline{X} - X_{(1)}$ в силу того, что функция $f(x) = \frac{c}{x} - \ln x, c \le 0$ имеет глобальный максимум в т. $x = -c$ \\
+  \todo{ Доказать асимптотическую нормальность}
 }
 \problem{
 Найдите оценку максимального правдоподобия для параметра сдвига в распределении Коши, т.е. плотность равна
@@ -252,52 +251,85 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
   \item $\D X_1 = \theta(1 - \theta)$
   \item $\D X_1 = \theta$
   \item $\D X_1 = 1$
-  \item $\E X_1 = 1 / \theta \ra \hat{\theta} = \frac{1}{\overline{X}}$. По задаче 10 известно, что оценка асимптотически нормальная с ас-й дисперсией $\theta^2 \psi_{\overline{X}} = \psi_{X_1}^n(t/n) = \left(1 - \frac{it}{n\theta}\right)^{-n} \ra $
+  \item $\E X_1 = 1 / \theta \ra \hat{\theta} = \frac{1}{\overline{X}}$. По методу моментов оценка сильно состоятельная. По задаче 10 оценка асимптотически нормальная с ас-й дисперсией $\theta^2$. Найдем $p_{\overline{X}}(x).$ В силу независимости $p_{X_1 + X_2}(x) = \int_{\R} p_{X_1}(x - t) p_{X_2}(t) dt = \int_{\R} \theta e^{-\theta(x - t)} I_{x - t \ge 0} \theta e^{-\theta t} I_{t \ge 0} dt = \int_{0}^{x} \theta^2 e^{-\theta x} = \theta^2 x e^{-\theta x} I_{x \ge 0}$. По индукции получаем, что $p_{X_1 + \dots + X_n}(x) = \theta^n \frac{x^{n - 1}}{(n - 1)!}e^{-\theta x} I_{x \ge 0}$. \\ 
+  $p_{\xi / n}(x) = \frac{d}{dx}F_{\xi / n}(x) = \frac{d}{dx} F_{\xi}(nx) = n p_{\xi}(nx) \ra p_{\overline{X}}(x) = n^n \theta^n \frac{x^{n - 1}}{(n - 1)!} e^{-\theta nx}I_{x \ge 0}$.
+  \[\E 1/\overline{X} = \int_{0}^{+\infty} n^n \theta^n \frac{x^{n - 2}}{(n - 1)!} e^{-\theta nx} dx = -\frac{n^{n - 1}\theta^{n - 1}}{n - 1}\left(\left. \frac{x^{n - 2}}{(n - 2)!}e^{-\theta nx}\right|_{0}^{+\infty} - \int_{0}^{+\infty} \frac{x^{n - 3}}{(n - 3)!} e^{-\theta nx} dx\right) = \] \[\frac{n^{n - 1}\theta^{n - 1}}{n - 1} \int_{0}^{+\infty} \frac{x^{n - 3}}{(n - 3)!} e^{-\theta nx} dx = \dots = \frac{(n\theta)^{n - (n - 2)}}{n - 1} \int_{0}^{+\infty} e^{-\theta nx} dx = \frac{n\theta}{n - 1} \ne \theta \ra \text{ оценка смещена }\]
 \end{enumerate}
 }
 \problem{
 Решить предыдущую задачу использую вместо метода моментов метод максимального правдоподобия.
 }
-\solution{~}
+\solution{
+  Пусть $\sum_{i = 1}^n x_i = a$
+  \begin{enumerate}[label=\alph*]
+  \item $L(\theta) = \theta^a (1 - \theta)^{n - a} \ra l(\theta) = a \ln \theta + (n - a) \ln (1 - \theta) \ra \frac{d}{d\theta}l(\theta) = \frac{a}{\theta} - \frac{n - a}{1 - \theta}$, причем $\frac{d^2}{d\theta^2}l(\theta) = \frac{-a}{\theta^2} - \frac{n - a}{(1 - \theta)^2} < 0 \forall \theta \ra \theta = a / n$ точка строгого глобального максимума $\ra \hat{\theta} = \overline{X}$
+  \item $L(\theta) = \frac{\theta^a e^{-n\theta}}{x_1!x_2! \dots x_n!} \to \max_{\theta} \lra H(\theta) = \theta^a e^{-n\theta} \to \max_{\theta}. h(\theta) = a \ln \theta - n \theta \ra \frac{d}{d\theta} h(\theta) = \frac{a}{\theta} - n \ra \hat{\theta} = \overline{X}$
+  \item $L(\theta) = \frac{1}{(2\pi)^{n / 2}} e^{\frac{-\sum_{i = 1}^n (x_i - \theta)^2}{2}} \to \max_{\theta} \lra \sum_{i = 1}^n (x_i - \theta)^2 \to \min_{\theta} \ra \hat{\theta} = \overline{X}$
+  \item $L(\theta) = \theta^n e^{-\theta a} I_{x_{(1)} \ge 0}$. Опустим индикатор, он ни на что не влияет. $l(\theta) = n \ln \theta - \theta a \ra \frac{d}{d\theta} l(\theta) = \frac{n}{\theta} - a \ra \hat{\theta} = \frac{1}{\overline{X}}$
+\end{enumerate}
+Во всех случаях получили те же оценки
+}
 \problem{
 Рассмотрим распределения Коши с плотностью $p_{\theta}(x) = \frac{1}{\pi(1 + (x - \theta)^2)}$. С помощью выборочной медианы построить асимптотически нормальную оценку для $\theta^2$ и найти ее асимптотическую дисперсию.
 }
-\solution{~}
+\solution{
+  По теореме о выборочной медиане $\hat{\mu}$ является асимтотически нормальной оценкой параметра $z_{\frac{1}{2}} = \theta$ с асимптотической дисперсией $\frac{1}{4p_{\theta}\left(z_{\frac{1}{2}}\right)} = \frac{\pi^2}{4}$. Ф-я $f(x) = x^2$ является дифференциируемой, по теореме о наследовании асимптотической нормальности получаем, что $\hat{\mu}^2$ является асимптотически нормальной оценкой параметра $\theta^2$ с асимптотичской дисперсией $(2\theta)^2 \frac{\pi^2}{4} = (\pi \theta)^2$
+}
 \problem{
 Пусть $X_1, \dots, X_n$ — выборка из распределения:
 а)$Bern(\theta)$, б)$Pois(\theta)$, в)$\ND{\theta}{1}$, г)$\exp(\theta)$.
 Для каких функций существует эффективная оценка? Найти соответствующую эффективную оценку и количество информации (фишеровской), содежащейся в одном сообщении.
 }
-\solution{~}
+\solution{
+  Для всех распределений $\Theta = \R$, носитель не зависит от $\theta$ и все функции распределений ``хорошие'', то есть выполняются первые 3 пункта условий регулярности.
+  \begin{enumerate}[label=\alph*]
+  \item $p_{X_1}(x) = \theta I_{1}(x) + (1 - \theta)I_{0}(x) \ra u_{\theta}(x) = \frac{I_1(x) - I_0(x)}{p_{X_1}(x)} \ra i(\theta) = \frac{1}{\theta} + \frac{1}{1 - \theta} = \frac{1}{\theta(1 - \theta)}$ \\ \todo{}
+  \end{enumerate}
+}
 \section{Достаточные статистики. Полные статистики. Оптимальные оценки. }
 \problem{
 Приведите пример такого параметрического семейства распределений $P$ и нетривиальной неполной достаточной статистики $S(X_1 , \dots, X_n)$, где $X_1 , \dots, X_n$ — выборка из неизвестного распределения $P \in \mathcal{P}$, что размерность статистики $S$ равна 1.
 }
-\solution{~}
+\solution{
+  \todo{}
+}
 \problem{
 Пусть  $X_1 , \dots, X_n$ - выборка из нормального распределения
 с параметрами $(a, \sigma^2)$, $a \in \R$, $\sigma > 0$. Найдите оптимальную оценку параметра $\theta = (a, \sigma^2)$.
 }
-\solution{~}
+\solution{
+  \todo{}
+}
 \problem{
 Пусть $X_1 , \dots, X_n$ — выборка из нормального распределения с параметрами $(0, \theta^2)$. Найдите оптимальную оценку для $\theta$.
 }
-\solution{~}
+\solution{
+  \todo{}
+}
 \problem{
 Пусть $X_1 , \dots, X_n$ — выборка из пуассоновского
 распределения с параметром $\theta > 0$. Найдите $\E\left(X_1^2 \left\vert \displaystyle \sum_{i = 1}^n X_i \right.\right)$.
 }
-\solution{~}
+\solution{
+  \todo{}
+}
 \problem{
 С помощью критерия факторизации найти достаточную статистику для следующего семейства распределений:
 а)$Bern(\theta)$, б)$Pois(\theta)$, в)$\ND{\theta}{1}$, г)$\exp(\theta)$.
 Проверить, является ли полученная статистика полной.
 }
-\solution{~}
+\solution{
+  \todo{}
+}
 \problem{
 Построить оптимальную оценку функции $\tau(\theta) = 5\theta^2 + 3\theta + 7$ для $Bern(\theta)$.
 }
-\solution{~}
+\solution{
+  \todo{}
+}
 \problem{
 Построить оптимальную оценку функции $\tau(\theta) = \sqrt{\theta}$ для $\exp(\theta)$
+\solution{
+  \todo{}
+}
 \end{document}
