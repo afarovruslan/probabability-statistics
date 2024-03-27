@@ -291,20 +291,21 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
 Приведите пример такого параметрического семейства распределений $P$ и нетривиальной неполной достаточной статистики $S(X_1 , \dots, X_n)$, где $X_1 , \dots, X_n$ — выборка из неизвестного распределения $P \in \mathcal{P}$, что размерность статистики $S$ равна 1.
 }
 \solution{
-  \todo{}
+  Рассмотрим $X_1 \sim Bern(\theta)$. Правдоподобие выборки равно $L(\theta) = \theta^{\sum_{i = 1}^n x_n}(1 - \theta)^{n - \sum_{i = 1}^n x_n} \ra$ по критерию факторизации $S(X) = \sum_{i = 1}^n X_n$ является досаточной статистикой.
 }
 \problem{
 Пусть  $X_1 , \dots, X_n$ - выборка из нормального распределения
 с параметрами $(a, \sigma^2)$, $a \in \R$, $\sigma > 0$. Найдите оптимальную оценку параметра $\theta = (a, \sigma^2)$.
 }
 \solution{
-  \todo{}
+  $L(\theta) = \frac{1}{(2\pi)^{n / 2} \sigma^n} e^{\frac{-\sum_{i = 1}^n (x_i - a)^2}{2\sigma^2}} \ra T(X) = (\sum_{i = 1}^n X_i, \sum_{i = 1}^n X_i^2)$ ялвяется полной достаточной статистикой по теореме об экспоненциальных семействах. Решая уравнение несмещённости, получаем, что 
+  $S(X) = (\overline{X}, \frac{1}{n - 1} \sum_{i = 1}^n (X_i - \overline{X})^2)$ оптимальная оценка.
 }
 \problem{
 Пусть $X_1 , \dots, X_n$ — выборка из нормального распределения с параметрами $(0, \theta^2)$. Найдите оптимальную оценку для $\theta$.
 }
 \solution{
-  \todo{}
+  Так как нормальное распределение из экспоненциального семейства, $T(X) = \sum_{i = 1}^n X_i^2$ является полной достаточной статистикой. Решая уравнение несмещённости, получаем $S(X) = \frac{n}{n - 1}\overline{X^2}$ - оптимальная оценка $\theta$
 }
 \problem{
 Пусть $X_1 , \dots, X_n$ — выборка из пуассоновского
@@ -325,11 +326,20 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
 Построить оптимальную оценку функции $\tau(\theta) = 5\theta^2 + 3\theta + 7$ для $Bern(\theta)$.
 }
 \solution{
-  \todo{}
+  При $n = 1$ построить несмещенную оценку для $\theta^2$ невозможно, далее полгаем $n \ne 1$.
+  По предыдущей задаче известно, что статистика $T(X) = \sum_{i = 1}^n X_i$ является полной достаточной. $T(X) \sim Bin(n, \theta) \ra \E T(X) = n\theta$, $\D T(X) = n(\theta - \theta^2) \ra \E T^2(X) = n\theta - n\theta^2 + n^2\theta^2 \ra \theta^2 = \frac{\E T^2 - \E T}{n^2 - n} \ra \phi(T) = 5 \frac{T^2 - T}{n^2 - n} + 3\frac{T}{n} + 7$
 }
 \problem{
 Построить оптимальную оценку функции $\tau(\theta) = \sqrt{\theta}$ для $\exp(\theta)$
 \solution{
-  \todo{}
+  Так как семейство экспоненциальное с правдоподобием $L(\theta) = e^{-\theta \sum_{i = 1}^n x_i + n\ln \theta}$, то оценка
+  $T(X) = \sum_{i = 1}^n X_i$ является полной достаточной по теореме об экспоненциальном распределении. Решим уравнение несмещенности.
+  По задаче 19 известно, что $p_{T}(x) = \theta^n \frac{x^{n - 1}}{(n - 1)!}e^{-\theta x} I_{x \ge 0}$. Положим $\phi(x) = \frac{1}{\sqrt{x}}$. Тогда
+  \[\E \phi(T(X)) = \frac{\theta^n}{(n - 1)!}\int_{0}^{+\infty} x^{n - 3/2} e^{-\theta x}dx = -\frac{\theta^{n - 1}}{(n - 1)!} \left(\left.x^{n - 3/2}e^{-\theta x}\right|_{0}^{+\infty} - (n - 3/2) \int_{0}^{+\infty} x^{n - 5/2} e^{-\theta x} dx \right)\]
+  \[= \frac{\theta^{n - 1}}{(n - 1)!}(n - 3/2) \int_{0}^{+\infty} x^{n - 5/2} e^{-\theta x}dx = \dots = \frac{\theta^2}{(n - 1)!}
+  \Pi_{i = 1}^{n - 2} (n - i - 1/2) \int_{0}^{+\infty} \sqrt{x}e^{-\theta x} dx \]
+  \[\int_{0}^{+\infty} \sqrt{x}e^{-\theta x} dx = \int_{0}^{+\infty} 2t^2 e^{-\theta t^2} dt = -\frac{1}{\theta}\int_{0}^{+\infty} t d(e^{-\theta t^2}) = \frac{1}{\theta} \int_{0}^{+\infty} e^{-\theta t^2} dt = \frac{\sqrt{\pi}}{2} \frac{1}{\theta \sqrt{\theta}} \ra\]
+  \[\E \phi(T(X)) = \frac{\sqrt{\pi} \Pi_{i = 1}^{n - 2} (n - i - 1/2)}{2(n - 1)!} \sqrt{\theta}\]
+  Отсюда положив $\psi(T(X)) = \frac{2(n - 1)!}{\sqrt{\pi} \Pi_{i = 1}^{n - 2} (n - i - 1/2)} \frac{1}{\sqrt{T(X)}} = \frac{2(n - 1)!}{\sqrt{\pi} \Pi_{i = 1}^{n - 2} (n - i - 1/2)} \frac{1}{\sqrt{\sum_{i = 1}^n X_i}}$ мы получим оптимальную оценку.
 }
 \end{document}
