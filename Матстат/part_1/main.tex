@@ -312,7 +312,7 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
 распределения с параметром $\theta > 0$. Найдите $\E\left(X_1^2 \left\vert \displaystyle \sum_{i = 1}^n X_i \right.\right)$.
 }
 \solution{
-  \todo{}
+  $\sum_{i = 1}^n X_i$ полная достаточная статистика для параметра $\theta$. $\E X_1^2 = \D X_1 + (\E X_1)^2 = \theta + \theta^2 \ra$ матожидание равно оптимальной оценке $\theta + \theta^2$. $T(X) = \sum_{i = 1} X_i \sim Pois(n\theta) \ra \E T = n\theta, \E T^2 = n\theta + n^2\theta^2 \ra S(T) = \frac{T^2 - T}{n^2} + \frac{T}{n}$
 }
 \problem{
 С помощью критерия факторизации найти достаточную статистику для следующего семейства распределений:
@@ -320,7 +320,19 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
 Проверить, является ли полученная статистика полной.
 }
 \solution{
+  Пусть $\sum_{i = 1}^n x_i = a$, $T(X) = \sum_{i = 1}^n X_i$
+  \begin{enumerate}[label=\alph*]
+  \item $L(\theta) = \theta^a (1 - \theta)^{n - a} \ra T(X) - $ достаточная статистика. $T \sim Bin(n, \theta)
+  \E \phi(T) = \sum_{k = 1}^n \phi(k) C_n^k \theta^k (1 - \theta)^{n - k} = 0 \forall \theta \lra \sum_{k = 1}^n \phi(k) C_n^k z^k = 0 \forall z
+  $, где $z = \frac{\theta}{1 - \theta} \ra$ $\forall k \phi(k) = 0 \ra$ статистика полная.
+  \item $L(\theta) = \frac{\theta^a e^{-n\theta}}{x_1!x_2! \dots x_n!} \ra T(X)$ - достаточная статистика.
+  $T(X) \sim Pois(n\theta) \ra \E \phi(T) = \sum_{k = 0}^{\infty} \phi(k) e^{-n\theta} \frac{(n\theta)^k}{k!} = 0 \forall \theta$ 
+  $\left. \frac{d^m}{d\theta^m} e^{n\theta}\E \phi(T) \right|_{\theta = 0} = \left. \sum_{k = m}^{\infty} \phi(k) n^k \frac{\theta^{k - m}}{(k - m)!}\right|_{\theta = 0} = n^m \phi(m) = 0 \ra \phi(m) = 0 \ra$ статистика является полной.  
+  \item $L(\theta) = \frac{1}{(2\pi)^{n / 2}} e^{\frac{-\sum_{i = 1}^n (x_i - \theta)^2}{2}} = \frac{1}{(2\pi)^{n / 2}} e^{\frac{-\sum_{i = 1}^n x_i^2}{2}} e^{\theta a - \frac{n\theta^2}{2}} \ra T(X)$ достаточная статистика. $T(X) \sim \ND{\theta}{1/n} $
+  \[\E \phi(T) = \int_{\R} \sqrt{\frac{n}{2\pi}} \phi(x) e^{-\frac{n}{2} (x - \theta)^2} dx \]
   \todo{}
+  \item $L(\theta) = \theta^n e^{-\theta a} I_{x_{(1)} \ge 0} \ra T(X)$ - достаточная. 
+\end{enumerate}
 }
 \problem{
 Построить оптимальную оценку функции $\tau(\theta) = 5\theta^2 + 3\theta + 7$ для $Bern(\theta)$.
