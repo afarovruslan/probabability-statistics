@@ -6,3 +6,4 @@
 !.gitignore
 !*.tex
 !*.pdf
+!*.ipynb
