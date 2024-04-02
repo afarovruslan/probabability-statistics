@@ -230,9 +230,8 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
 Найдите информацию Фишера $i(\theta)$ одного наблюдения в этой модели.
 }
 \solution{
-  \[u_{\theta}(x) = \frac{1 + e^{2\theta - 2x}}{(1 + e^{\theta - x})^2} \ra i(\theta) = \int_{\R} \frac{(1 + e^{2\theta - 2x})^2}{(1 + e^{\theta - x})^4} \frac{e^{\theta - x}}{(1 + e^{\theta - x})^2} dx = \int_{0}^{+\infty} \frac{(1 + t^2)^2}{(1 + t)^6} dt =\]
-  \[ \int_{1}^{+\infty} \frac{(1 + (u - 1)^2)^2}{u^6}du = \int_{1}^{+\infty} \frac{u^4 - 4u^3+ 8u^2 - 8u + 4}{u^6}du =\]
-  \[\left.\left(-1u^{-1} - 4 \frac{u^{-2}}{-2} + 8\frac{u^{-3}}{-3} - 8 \frac{u^{-4}}{-4} + 4 \frac{u^{-5}}{-5}\right)\right|_{1}^{+\infty} = -\left(-1+ 2 - \frac{8}{3} + 2- \frac{4}{5}\right) = \frac{7}{15}\]
+  \[u_{\theta}(x) = \frac{1 - e^{\theta - x}}{1 + e^{\theta - x}} \ra i(\theta) = \int_{\R} \frac{(1 - e^{\theta - x})^2}{(1 + e^{\theta - x})^2} \frac{e^{\theta - x}}{(1 + e^{\theta - x})^2} dx = \int_{0}^{+\infty} \frac{(1 - t)^2}{(1 + t)^4} dt =\]
+  \[ \int_{1}^{+\infty} \frac{(2 - u)^2}{u^4}du = \int_{1}^{+\infty} \frac{4 - 4u + u^2}{u^4}du =\left.\left(4 \frac{u^{-3}}{-3} -4\frac{u^{-2}}{-2} + \frac{u^{-1}}{-1}\right)\right|_{1}^{+\infty} = -\left(-\frac{4}{3} + 2 - 1\right) = \frac{1}{3}\]
 }
 \problem{
 С помощью метода моментов построить оценку параметра $\theta$ для следующих распределений:
