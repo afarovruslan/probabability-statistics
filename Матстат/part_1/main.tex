@@ -167,8 +167,8 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
 }
 \solution{~
   \begin{enumerate}[label=\alph*]
-  \item $\LL(x, \theta) = \frac{1}{1 + (x - \theta)^2} \ra \hat{\theta} = X_1$
-  \item $l(x, \theta) = -\ln(1 + (x_1 - \theta)^2) - \ln(1 + (x_2 - \theta)^2) \ra \frac{dl}{dx} = \frac{(x_1 + x_2 - 2\theta)(\theta^2 - \theta x_1 - \theta x_2 + x_1 x_2 + 1)}{(1 + (x_1 - \theta)^2)(1 + (x_2 - \theta)^2)}$. Получаем 2 случая:
+  \item $\pi\LL(x, \theta) = \frac{1}{1 + (x - \theta)^2} \ra \hat{\theta} = X_1$
+  \item $l(x, \theta) = -\ln(1 + (x_1 - \theta)^2) - \ln(1 + (x_2 - \theta)^2) - 2 \ln \pi \ra \frac{dl}{d\theta} = \frac{2(x_1 + x_2 - 2\theta)(\theta^2 - \theta x_1 - \theta x_2 + x_1 x_2 + 1)}{(1 + (x_1 - \theta)^2)(1 + (x_2 - \theta)^2)}$. Получаем 2 случая:
   \begin{enumerate}
     \item $|x_1 - x_2| \le 2$ \\
     Тогда уравенение правдоподобия имеет единственный корень $\frac{x_1 + x_2}{2}$. Легко заметить, что в этой точке достигается максимум всей функции
@@ -199,14 +199,14 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
 (n + 1)X_{(1)}, \frac{n + 1}{n}X_{(n)} $.
 }
 \solution{
-  Поскольку все оценки несмещены, фактически нужно сравнить дисперсии этих случайных величин.
+  По задаче 7 все оценки несмещены $\ra$ нужно сравнить дисперсии этих случайных величин.
   \begin{enumerate} 
 
     \item $\D (2 \overline{X}) = \frac{4}{n} \D X_1 =  \frac{\theta^2}{3}$.
     \item $\D (n + 1)X_{(1)} = (n + 1)^2 \D X_{(1)}. \E X_{(1)}^2 = \int_{0}^{\theta}x^2n\left(1 - \frac{x}{\theta}\right)^{n - 1}\frac{1}{\theta}dx = n\theta^2\int_{0}^{1}t^2(1 - t)^{n - 1}dt = \theta^2 nB(3, n) = \theta^2 n\frac{2!(n - 1)!}{(n + 2)!} = \frac{2\theta^2}{(n + 1)(n + 2)} \ra \D X_1 = \frac{2\theta^2}{(n + 1)(n + 2)} - \frac{\theta^2}{(n + 1)^2} = \frac{n\theta^2}{(n + 1)^2(n + 2)} \ra \\ \D (n + 1)X_{(1)} = \theta^2 \left(1 - \frac{2}{n + 2}\right)$
     \item $\E X_{(n)}^2 = \int_{0}^{\theta} nx^2 \frac{x^{n - 1}}{\theta^n}dx = \theta^2 \frac{n}{n + 2} \ra \D X_{(n)} = \theta^2n \left( \frac{1}{(n + 2)} - \frac{n}{(n + 1)^2}\right) = \theta^2 \frac{n}{(n + 1)^2(n + 2)} \ra \D \frac{n + 1}{n}X_{(n)} = \frac{\theta^2}{(n + 1)(n + 2)}$
   \end{enumerate}
-  Таким образом, $3_{\text{оц}} \text{ лучше } 2_{\text{оц}} \text{ лучше } 1_{\text{оц}}$
+  Таким образом(асимптотически), $3_{\text{оц}} \text{ лучше } 1_{\text{оц}} \text{ лучше } 2_{\text{оц}}$
 }
 \problem{
 Пусть $\theta^*_1(X)$ и $\theta^*_2(X)$ — две наилучшие в среднеквадратичном подходе оценки параметра $\theta$ в классе всех оценок с од-
