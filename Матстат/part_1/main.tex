@@ -146,7 +146,7 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
 Пусть $X_1, \dots, X_n$ — выборка из экспоненциального распределения с параметром $\theta$. Покажите, что $\forall k \in \N$ статистика $\sqrt[k]{k!/\overline{X^k}}$ является асимптотически нормальной оценкой параметра $\theta$. Найдите ее асимптотическую дисперсию.
 }
 \solution{
-	\[\psi_{X_1}(t) = \E e^{itX_1} = \int_{0}^{+\infty} \theta e^{-\theta x} e^{itx}dx =  \int_{0}^{+\infty} \theta e^{x(it - \theta)}dx = -\frac{\theta}{it - \theta} = \left(1 - \frac{it}{\theta}\right)^{-1}\] \[ \frac{d^k}{dt^k}\psi_{X_1}(t) = \frac{i^k}{\theta^k}k!\left(1 - \frac{it}{\theta}\right)^{-k - 1} \ra \E X_1^k = \frac{k!}{\theta^k}\]. Пусть $\xi_n = \sqrt{n}\left(\overline{X^k} - \frac{k!}{\theta^k}\right)$. Тогда по ЦПТ $\xi_n \tod \ND{0}{\D X^k}, \D X^k = \frac{(2k)!}{\theta^{2k}} - \frac{(k!)^2}{\theta^{2k}}. $Пользуясь теоремой 1.4 из C2 для $h(x) = \sqrt[k]{k!/x}, b_n = 1 /\sqrt{n}$ и $a = \frac{k!}{\theta^k}. h'(x) = (\sqrt[k]{k!}x^{-\frac{1}{k}})' = -\frac{1}{k}\sqrt[k]{\frac{k!}{x^{k + 1}}} \ra h'(a) = -\frac{\theta^{k + 1}}{k!k} \ra \sqrt{n}\left(\sqrt[k]{k!/\overline{X^k}} - \theta\right) \tod \ND{0}{\sigma^2(\theta)}$, где $\sigma^2(\theta) = \D X^k h'(a)^2 = \theta^2 \frac{(2k)! - (k!)^2}{(k!k)^2}$
+	\[\psi_{X_1}(t) = \E e^{itX_1} = \int_{0}^{+\infty} \theta e^{-\theta x} e^{itx}dx =  \int_{0}^{+\infty} \theta e^{x(it - \theta)}dx = -\frac{\theta}{it - \theta} = \left(1 - \frac{it}{\theta}\right)^{-1}\] \[ \frac{d^k}{dt^k}\psi_{X_1}(t) = \frac{i^k}{\theta^k}k!\left(1 - \frac{it}{\theta}\right)^{-k - 1} \ra \E X_1^k = \frac{k!}{\theta^k}\] Пусть $\xi_n = \sqrt{n}\left(\overline{X^k} - \frac{k!}{\theta^k}\right)$. Тогда по ЦПТ $\xi_n \tod \ND{0}{\D X^k}, \D X^k = \frac{(2k)!}{\theta^{2k}} - \frac{(k!)^2}{\theta^{2k}}$. Пользуясь теоремой 1.4 из C2 для $h(x) = \sqrt[k]{k!/x}, b_n = 1 /\sqrt{n}$ и $a = \frac{k!}{\theta^k}. h'(x) = (\sqrt[k]{k!}x^{-\frac{1}{k}})' = -\frac{1}{k}\sqrt[k]{\frac{k!}{x^{k + 1}}} \ra h'(a) = -\frac{\theta^{k + 1}}{k!k} \ra \sqrt{n}\left(\sqrt[k]{k!/\overline{X^k}} - \theta\right) \tod \ND{0}{\sigma^2(\theta)}$, где $\sigma^2(\theta) = \D X^k h'(a)^2 = \theta^2 \frac{(2k)! - (k!)^2}{(k!k)^2}$
 }
 \problem{
 Пусть $X_1 , \dots , X_n$ - выборка из распределения с плотностью
@@ -202,7 +202,7 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
   По задаче 7 все оценки несмещены $\ra$ нужно сравнить дисперсии этих случайных величин.
   \begin{enumerate} 
 
-    \item $\D (2 \overline{X}) = \frac{4}{n} \D X_1 =  \frac{\theta^2}{3}$.
+    \item $\D (2 \overline{X}) = \frac{4}{n} \D X_1 =  \frac{\theta^2}{3n}$.
     \item $\D (n + 1)X_{(1)} = (n + 1)^2 \D X_{(1)}. \E X_{(1)}^2 = \int_{0}^{\theta}x^2n\left(1 - \frac{x}{\theta}\right)^{n - 1}\frac{1}{\theta}dx = n\theta^2\int_{0}^{1}t^2(1 - t)^{n - 1}dt = \theta^2 nB(3, n) = \theta^2 n\frac{2!(n - 1)!}{(n + 2)!} = \frac{2\theta^2}{(n + 1)(n + 2)} \ra \D X_1 = \frac{2\theta^2}{(n + 1)(n + 2)} - \frac{\theta^2}{(n + 1)^2} = \frac{n\theta^2}{(n + 1)^2(n + 2)} \ra \\ \D (n + 1)X_{(1)} = \theta^2 \left(1 - \frac{2}{n + 2}\right)$
     \item $\E X_{(n)}^2 = \int_{0}^{\theta} nx^2 \frac{x^{n - 1}}{\theta^n}dx = \theta^2 \frac{n}{n + 2} \ra \D X_{(n)} = \theta^2n \left( \frac{1}{(n + 2)} - \frac{n}{(n + 1)^2}\right) = \theta^2 \frac{n}{(n + 1)^2(n + 2)} \ra \D \frac{n + 1}{n}X_{(n)} = \frac{\theta^2}{(n + 1)(n + 2)}$
   \end{enumerate}
@@ -304,7 +304,9 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
 Пусть $X_1 , \dots, X_n$ — выборка из нормального распределения с параметрами $(0, \theta^2)$. Найдите оптимальную оценку для $\theta$.
 }
 \solution{
-  Так как нормальное распределение из экспоненциального семейства, $T(X) = \sum_{i = 1}^n X_i^2$ является полной достаточной статистикой. Решая уравнение несмещённости, получаем $S(X) = \frac{n}{n - 1}\overline{X^2}$ - оптимальная оценка $\theta$
+  Так как нормальное распределение из экспоненциального семейства, $T(X) = \sum_{i = 1}^n X_i^2$ является полной достаточной статистикой. Найдем распределение $T(X)$. \\$\frac{T(X)}{ \theta^2} \sim \chi^2(n), p_{\theta^2 \chi^2} = \frac{d}{dx}F_{\chi^2}(x / \theta^2) = 1/\theta^2 p_{\chi^2}(x/\theta^2)$
+  \[\E \phi(T) = \frac{1}{2^{n / 2}\Gamma(n / 2)}\int_{0}^{+\infty} \phi(x) \left(\frac{x}{\theta^2}\right)^{n/2 - 1} e^{-\frac{x}{2\theta^2}}d(x / \theta^2) = \frac{1}{2^{n / 2}\Gamma(n / 2)} \int_{0}^{+\infty} \phi(t\theta^2) t^{n/2 - 1} e^{-\frac{t}{2}}dt \ra\]
+  \[\text{ положив } \phi(x) = \sqrt{x} \text{ получаем } \frac{\theta}{2^{n / 2}\Gamma(n / 2)} \int_{0}^{+\infty} t^{(n + 1) / 2 - 1} e^{-\frac{t}{2}}dt = \frac{\theta 2^{(n + 1)/2}}{2^{n / 2}\Gamma(n / 2)} \int_{0}^{+\infty} u^{(n + 1)/2 - 1}e^{-u} du\]\[ = \frac{\theta \sqrt{2} \Gamma(\frac{n + 1}{2})}{\Gamma(n / 2)}. \text{ Окончательно получаем } S(X) = \frac{\Gamma(\frac{n}{2})}{\sqrt{2}\Gamma(\frac{n + 1}{2})}\sqrt{\sum_{i = 1}^n X_i^2}\]
 }
 \problem{
 Пусть $X_1 , \dots, X_n$ — выборка из пуассоновского
