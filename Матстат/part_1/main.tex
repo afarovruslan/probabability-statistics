@@ -21,7 +21,7 @@ $$
  Докажите, что если $\xi_n\xrightarrow[]{d}\xi,|\xi_n-\eta_n|\leq\zeta_n|\xi_n|,\ \zeta_n\xrightarrow[]{P}0,$ то $\eta_n\xrightarrow[]{d}\xi$
  }
 \solution{
-	\todo{}
+	По лемме Слуцкого $\zeta_n |\xi_n| \tod 0$. Тогда $\forall x F_0(x) \ge F_{|\xi_n-\eta_n|}(x) \ge F_{\zeta_n |\xi_n|}(x) \ra  F_{\zeta_n |\xi_n|}(x) \to F_0(x) \forall x \ne 0$ по теореме о зажатой последовательности $\ra |\xi_n-\eta_n| \tod 0 \lra |\xi_n-\eta_n| \toP 0$. $P(|\eta_n - \xi_n| > \eps) = P(\eta_n - \xi_n > \eps) + P(\eta_n - \xi_n < -\eps) \ge P(\eta_n - \xi_n > \eps) \ra \eta_n - \xi_n \toP 0 \ra \eta_n - \xi_n \tod 0$. $\eta_n = \eta_n - \xi_n + \xi_n \ra$ по теореме о наследовании сходимости $\eta_n \tod \xi$
 }
 \problem{
 Задан набор независимых одинаково распределённых случайных величин $X_1,\dots,X_n$ с распределением $\mathcal{N}(0,\sigma^2)$. 
@@ -62,10 +62,20 @@ $$
   \item $\xi_n\xrightarrow[]{d}\xi,\ \xi_n\centernot{\xrightarrow[]{P}}\xi,\ n\rightarrow \infty$
 \end{enumerate}
 }
-\solution{
+\solution{~
 	\begin{enumerate}
-		\item \todo{}
-		\item \todo{}
+		\item (Ступеньки Риса) Пусть вероятностное пространство $([0, 1], \mathcal{B}([0, 1]), \mu)$. Пусть $k \in \N$. Положим $\xi_{\frac{k(k - 1)}{2} + i}(\omega) = 
+    \begin{cases}
+    1, \omega \in [\frac{i - 1}{k}, \frac{i}{k}] \\
+    0, \omega \in [0, 1] \backslash [\frac{i - 1}{k}, \frac{i}{k}]
+    \end{cases}, \\ i = 1, \dots, k
+    $ Тогда $\forall k \forall i \E (\xi_{\frac{k(k - 1)}{2} + i} - 0)^2 = \frac{1}{k} \to 0 \ra \xi_n \xrightarrow[]{L_2} 0$, но $\xi_n\centernot{\xrightarrow[]{\text{п.н.}}} 0$
+		\item То же вероятностное пространство, $\xi_n = 
+    \begin{cases}
+    n, \omega \in [0, \frac{1}{n}] \\
+    0, \omega \in (\frac{1}{n},1]
+    \end{cases}
+    $ Тогда $\xi_n\xrightarrow[]{\text{п.н}} 0,  \E \xi_n^2 = n \ra \xi_n\centernot{\xrightarrow[]{{L_2}}} 0$
 		\item Пусть $\xi \sim \ND{0}{1}, \xi_n = \xi$, тогда $\xi_n \tod -\xi$, но $P(|\xi_n + \xi| > \eps) = P(|\xi| > \eps / 2) \centernot{\xrightarrow[]{}} 0$
 	\end{enumerate}
 }
@@ -140,7 +150,7 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
 Пусть $X_1, \dots, X_n$ - выборка из распределения с параметром $\sigma^2$. Пусть, кроме того $D_{\sigma^2}X_1 = \sigma^2$ Докажите, что статистика $s = 1/n\sum_{i=1}^n (X_i - \overline{X})^2$ равна $\overline{X^2} - \left(\overline{X}\right)^2$ и является состоятельной оценкой $\sigma^2$. Является ли она несмещенной оценкой того же параметра?
 }
 \solution{
-	$	1/n\sum_{i=1}^n (X_i - \overline{X})^2 = 1 / n \sum_{i = 1}^n (X_i^2 - 2X_i\overline{X} + \left(\overline{X}\right)^2) = 1 / n \sum_{i = 1}^n X_i^2 - 2\overline{X}1 / n \sum_{i = 1}^n X_i - \left(\overline{X}\right)^2 = \overline{X^2} - 2\left(\overline{X}\right)^2 + \left(\overline{X}\right)^2 = \overline{X^2} - \left(\overline{X}\right)^2$. Подставляя в равентсво вместо $X_i \text{  }X_i - \E X_i$ мы получим, что данная оценка равна $\overline{(X - \E X_1)^2} - (\overline{X} - \E X_1)^2 \toac \D X_1$ по УЗБЧ. Но $\E s = \D X_1 - \D \overline{X} = \D X_1 - \frac{1}{n}\D X_1 \ne \D X_1 \ra $ оценка смещена 
+	$	1/n\sum_{i=1}^n (X_i - \overline{X})^2 = 1 / n \sum_{i = 1}^n (X_i^2 - 2X_i\overline{X} + \left(\overline{X}\right)^2) = 1 / n \sum_{i = 1}^n X_i^2 - 2\overline{X}1 / n \sum_{i = 1}^n X_i - \left(\overline{X}\right)^2 = \overline{X^2} - 2\left(\overline{X}\right)^2 + \left(\overline{X}\right)^2 = \overline{X^2} - \left(\overline{X}\right)^2$. Подставляя в равенство вместо $X_i \text{  }X_i - \E X_i$ мы получим, что данная оценка равна $\overline{(X - \E X_1)^2} - (\overline{X} - \E X_1)^2 \toac \D X_1$ по УЗБЧ. Но $\E s = \D X_1 - \D \overline{X} = \D X_1 - \frac{1}{n}\D X_1 \ne \D X_1 \ra $ оценка смещена 
 }
 \problem{
 Пусть $X_1, \dots, X_n$ — выборка из экспоненциального распределения с параметром $\theta$. Покажите, что $\forall k \in \N$ статистика $\sqrt[k]{k!/\overline{X^k}}$ является асимптотически нормальной оценкой параметра $\theta$. Найдите ее асимптотическую дисперсию.
@@ -203,7 +213,7 @@ $\overline{\xi}_n\xrightarrow[]{d}\overline{c},$ то $\overline{\xi}_n\xrightar
   \begin{enumerate} 
 
     \item $\D (2 \overline{X}) = \frac{4}{n} \D X_1 =  \frac{\theta^2}{3n}$.
-    \item $\D (n + 1)X_{(1)} = (n + 1)^2 \D X_{(1)}. \E X_{(1)}^2 = \int_{0}^{\theta}x^2n\left(1 - \frac{x}{\theta}\right)^{n - 1}\frac{1}{\theta}dx = n\theta^2\int_{0}^{1}t^2(1 - t)^{n - 1}dt = \theta^2 nB(3, n) = \theta^2 n\frac{2!(n - 1)!}{(n + 2)!} = \frac{2\theta^2}{(n + 1)(n + 2)} \ra \D X_1 = \frac{2\theta^2}{(n + 1)(n + 2)} - \frac{\theta^2}{(n + 1)^2} = \frac{n\theta^2}{(n + 1)^2(n + 2)} \ra \\ \D (n + 1)X_{(1)} = \theta^2 \left(1 - \frac{2}{n + 2}\right)$
+    \item $\D (n + 1)X_{(1)} = (n + 1)^2 \D X_{(1)}. \E X_{(1)}^2 = \int_{0}^{\theta}x^2n\left(1 - \frac{x}{\theta}\right)^{n - 1}\frac{1}{\theta}dx = n\theta^2\int_{0}^{1}t^2(1 - t)^{n - 1}dt = \theta^2 nB(3, n) = \theta^2 n\frac{2!(n - 1)!}{(n + 2)!} = \frac{2\theta^2}{(n + 1)(n + 2)} \ra \D X_{(1)} = \frac{2\theta^2}{(n + 1)(n + 2)} - \frac{\theta^2}{(n + 1)^2} = \frac{n\theta^2}{(n + 1)^2(n + 2)} \ra \\ \D (n + 1)X_{(1)} = \theta^2 \left(1 - \frac{2}{n + 2}\right)$
     \item $\E X_{(n)}^2 = \int_{0}^{\theta} nx^2 \frac{x^{n - 1}}{\theta^n}dx = \theta^2 \frac{n}{n + 2} \ra \D X_{(n)} = \theta^2n \left( \frac{1}{(n + 2)} - \frac{n}{(n + 1)^2}\right) = \theta^2 \frac{n}{(n + 1)^2(n + 2)} \ra \D \frac{n + 1}{n}X_{(n)} = \frac{\theta^2}{(n + 1)(n + 2)}$
   \end{enumerate}
   Таким образом(асимптотически), $3_{\text{оц}} \text{ лучше } 1_{\text{оц}} \text{ лучше } 2_{\text{оц}}$
@@ -219,11 +229,18 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
 }
 \problem{
 Пусть $X_1 , \dots, X_n$ - выборка из нормального распределения с параметрами $(a, \sigma^2)$. Найдите эффективную оценку
-а) параметра a, если $\sigma$ известно;
-б) параметра $\sigma^2$ , если a известно.
+а) параметра $a$, если $\sigma$ известно;
+б) параметра $\sigma^2$ , если $a$ известно.
 Вычислите информацию Фишера одного наблюдения в обоих случаях
 }
-\solution{~}
+\solution{
+  Для нормального распределения выполнены условия регулярности.
+  \begin{enumerate}[label=\alph*]
+  \item
+  $L(a) = \frac{1}{(2\pi)^{n / 2} \sigma^n} e^{\frac{-\sum_{i = 1}^n (x_i - a)^2}{2\sigma^2}} \ra u_a(X) = \sum_{i = 1}^n (X_i - a)/\sigma^2 = \frac{n}{\sigma^2}(\overline{X} - a) \ra$ по критерию эффективности $\overline{X}$ эффективная оценка параметра $a$, $i(a) = \frac{1}{\sigma^2}$
+  \item $L(\sigma^2) = \frac{1}{(2\pi\sigma^2)^{n / 2}} e^{\frac{-\sum_{i = 1}^n (x_i - a)^2}{2\sigma^2}} \ra u_{\sigma^2}(X) = \frac{d}{d\sigma^2}\left(-\frac{n}{2}\ln \sigma^2 - \frac{\sum_{i = 1}^n (X_i - a)^2}{2\sigma^2}\right) = -\frac{n}{2\sigma^2} + \frac{\sum_{i = 1}^n (X_i - a)^2}{2\sigma^4} = \frac{n}{2\sigma^4}\left(\frac{\sum_{i = 1}^n (X_i - a)^2}{n} - \sigma^2\right) \ra \frac{\sum_{i = 1}^n (X_i - a)^2}{n}$ - эффективная оценка $\sigma^2$, $i(\sigma^2) = \frac{1}{2\sigma^4}$
+  \end{enumerate}
+}
 \problem{
 Пусть $X_1, \dots, X_n$ — выборка из логистического распределения со сдвигом $\theta$, имеющего плотность
 \[p_{\theta}(x) = \frac{\exp\{\theta - x\}}{(1 + \exp\{\theta - x\})^2}\]
@@ -281,16 +298,21 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
 }
 \solution{
   Для всех распределений $\Theta = \R$, носитель не зависит от $\theta$ и все функции распределений ``хорошие'', то есть выполняются первые 3 пункта условий регулярности.
+  Пусть $\sum_{i = 1}^n x_i = a, T(X) = \sum_{i = 1}^n X_i$
   \begin{enumerate}[label=\alph*]
-  \item $p_{X_1}(x) = \theta I_{1}(x) + (1 - \theta)I_{0}(x) \ra u_{\theta}(x) = \frac{I_1(x) - I_0(x)}{p_{X_1}(x)} \ra i(\theta) = \frac{1}{\theta} + \frac{1}{1 - \theta} = \frac{1}{\theta(1 - \theta)}$ \\ \todo{}
-  \end{enumerate}
+  \item $L(\theta) = \theta^a (1 - \theta)^{n - a} \ra l(\theta) = a \ln \theta + (n - a) \ln (1 - \theta) \ra \frac{d}{d\theta}l(\theta) = \frac{a}{\theta} - \frac{n - a}{1 - \theta} \ra u_{\theta}(X) = \frac{T}{\theta
+  } - \frac{n - T}{1 - \theta} = \frac{n}{\theta(1 - \theta}(\frac{T}{n} - \theta) \ra $ по критерию эффективности $\overline{X}$ - эффективная оценка $\theta$, $i(\theta) = \frac{1}{\theta(1 - \theta)}$
+  \item $L(\theta) = \frac{\theta^a e^{-n\theta}}{x_1!x_2! \dots x_n!} \ra u_{\theta}(X) = \frac{T}{\theta} - n = \frac{n}{\theta}(\frac{T}{n} - \theta) \ra \overline{X}$ эффективная оценка по критерию эффективности, $i(\theta) = \frac{1}{\theta}$
+  \item см. задачу 17
+  \item $L(\theta) = \theta^n e^{-\theta a} I_{x_{(1)} \ge 0} \ra u_{\theta}(X) = \frac{n}{\theta} - T = -n(\frac{T}{n} - \frac{1}{\theta}) \ra$ по критерию эффективности не существует эффективной оценки параметра $\theta$
+\end{enumerate}
 }
 \section{Достаточные статистики. Полные статистики. Оптимальные оценки. }
 \problem{
 Приведите пример такого параметрического семейства распределений $P$ и нетривиальной неполной достаточной статистики $S(X_1 , \dots, X_n)$, где $X_1 , \dots, X_n$ — выборка из неизвестного распределения $P \in \mathcal{P}$, что размерность статистики $S$ равна 1.
 }
 \solution{
-  Рассмотрим $X_1 \sim Bern(\theta)$. Правдоподобие выборки равно $L(\theta) = \theta^{\sum_{i = 1}^n x_n}(1 - \theta)^{n - \sum_{i = 1}^n x_n} \ra$ по критерию факторизации $S(X) = \sum_{i = 1}^n X_n$ является досаточной статистикой.
+  Пример для $\Theta = \R$ я придумать не смог(. Пусть $\Theta = \N, X_i \sim R[0, \theta]$. Тогда $X_{(n)} - $ достаточная статистика. Положим $\phi(x) = \frac{\sin 2\pi x}{x^{n - 1}}$. Тогда $\E \phi(X_{(n)}) = 0 \forall \theta \in \Theta$
 }
 \problem{
 Пусть  $X_1 , \dots, X_n$ - выборка из нормального распределения
@@ -329,8 +351,8 @@ $\E(\theta^*_1(X) - \theta)^2 = \E(\theta^*_2(X) - \theta)^2$, при этом $
   \item $L(\theta) = \frac{\theta^a e^{-n\theta}}{x_1!x_2! \dots x_n!} \ra T(X)$ - достаточная статистика.
   $T(X) \sim Pois(n\theta) \ra \E \phi(T) = \sum_{k = 0}^{\infty} \phi(k) e^{-n\theta} \frac{(n\theta)^k}{k!} = 0 \forall \theta$ 
   $\left. \frac{d^m}{d\theta^m} e^{n\theta}\E \phi(T) \right|_{\theta = 0} = \left. \sum_{k = m}^{\infty} \phi(k) n^k \frac{\theta^{k - m}}{(k - m)!}\right|_{\theta = 0} = n^m \phi(m) = 0 \ra \phi(m) = 0 \ra$ статистика является полной.  
-  \item $L(\theta) = \frac{1}{(2\pi)^{n / 2}} e^{\frac{-\sum_{i = 1}^n (x_i - \theta)^2}{2}} = \frac{1}{(2\pi)^{n / 2}} e^{\frac{-\sum_{i = 1}^n x_i^2}{2}} e^{\theta a - \frac{n\theta^2}{2}} \ra T(X)$ достаточная статистика. $T(X) \sim \ND{\theta}{1/n} $
-  \[\E \phi(T) = \int_{\R} \sqrt{\frac{n}{2\pi}} \phi(x) e^{-\frac{n}{2} (x - \theta)^2} dx \]
+  \item $L(\theta) = \frac{1}{(2\pi)^{n / 2}} e^{\frac{-\sum_{i = 1}^n (x_i - \theta)^2}{2}} = \frac{1}{(2\pi)^{n / 2}} e^{\frac{-\sum_{i = 1}^n x_i^2}{2}} e^{\theta a - \frac{n\theta^2}{2}} \ra T(X)$ достаточная статистика. $T(X) \sim \ND{\theta}{n} $
+  \[\E \phi(T) = \int_{\R} \sqrt{\frac{1}{2\pi n}} \phi(x) e^{-\frac{1}{2n} (x - \theta)^2} dx \]
   \todo{}
   \item $L(\theta) = \theta^n e^{-\theta a} I_{x_{(1)} \ge 0} \ra T(X)$ - достаточная. 
 \end{enumerate}
