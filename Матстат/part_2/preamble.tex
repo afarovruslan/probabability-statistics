@@ -13,10 +13,13 @@
 %%% Дополнительная работа с математикой
 \usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} % пакеты AMS
 \usepackage{icomma}                                    % "Умная" запятая
+\usepackage{physics} % для символа нормы
 
 %%% Свои символы и команды
 \usepackage{centernot} % центрированное зачеркивание символа
 \usepackage{stmaryrd}  % некоторые спецсимволы
+
+\usepackage{pythonhighlight}
 
 % \renewcommand{\epsilon}{\ensuremath{\varepsilon}}
 % \renewcommand{\phi}{\ensuremath{\varphi}}
@@ -53,6 +56,8 @@
 	\mathrel{\vbox{\baselineskip.65ex\lineskiplimit0pt\hbox{.}\hbox{.}\hbox{.}}}
 }
 \newcommand{\notdivby}{\centernot\divby}
+% \newcommand\norm[1]{\left\lVert#1\right\rVert}
+% \newcommand\normx[1]{\left\Vert#1\right\Vert}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
@@ -191,7 +196,7 @@
 
 %%% Гиперссылки
 \usepackage{hyperref}
-\usepackage[usenames,dvipsnames,svgnames,table,rgb]{xcolor}
+% \usepackage[usenames,dvipsnames,svgnames,table,rgb]{xcolor}
 \hypersetup{
 	unicode=true,            % русские буквы в раздела PDF
 	colorlinks=true,       	 % Цветные ссылки вместо ссылок в рамках

@@ -114,7 +114,73 @@ P(\xi = 0) = \theta, P(\xi = 1) = \theta, \]
 \[X_i = \beta_1 + i\beta_2 + \eps_0 + \dots + \eps_i ,\]
 $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные параметры, а $\eps_0 , \dots , \eps_n$ - независимые, распределенные по закону $\ND{0}{\sigma^2}$ случайные величины. Сведите задачу к линейной модели и найдите оценки наименьших квадратов для $\beta_1$ и $\beta_2$ , а также несмещенную оценку для $\sigma^2$.
   }
-  \solution{}
+  \solution{
+  Заметим, что $X_{i + 1} - X_i = \beta_2 + \eps_i$
+  Запишем модель линейной регрессии:
+  \[
+  \begin{pmatrix}
+  X_0 \\
+  X_1 - X_0\\
+  \vdots \\
+  X_n - X_{n - 1}
+  \end{pmatrix} = 
+  \begin{pmatrix}
+  1 & 0 \\
+  0 & 1 \\
+  \vdots & \vdots \\
+  0 & 1
+  \end{pmatrix}
+  \begin{pmatrix}
+  \beta_1 \\
+  \beta_2
+  \end{pmatrix} + \eps \ra
+  \]
+  $Z^TZ = 
+  \begin{pmatrix}
+  1 & 0 \\
+  0 & n \\
+  \end{pmatrix} \ra (Z^TZ)^{-1} = 
+  \begin{pmatrix}
+  1 & 0 \\
+  0 & \frac{1}{n}
+  \end{pmatrix} \ra \hat{\beta} = 
+  \begin{pmatrix}
+  1 & 0 \\
+  0 & \frac{1}{n}
+  \end{pmatrix} 
+  \begin{pmatrix}
+  1 & 0 & \cdots & 0\\
+  0 & 1 & \cdots & 1
+  \end{pmatrix} 
+  \begin{pmatrix}
+  X_0 \\
+  X_1 - X_0\\
+  \vdots \\
+  X_n - X_{n - 1}
+  \end{pmatrix} =
+  \begin{pmatrix}
+  X_0 \\
+  \frac{X_n - X_0}{n}
+  \end{pmatrix}, \hat{\sigma^2} = \frac{1}{n + 1 - 2}\norm{
+  \begin{pmatrix}
+  X_0 \\
+  X_1 - X_0\\
+  \vdots \\
+  X_n - X_{n - 1}
+  \end{pmatrix} - \begin{pmatrix}
+  1 & 0 \\
+  0 & 1 \\
+  \vdots & \vdots \\
+  0 & 1
+  \end{pmatrix} 
+  \begin{pmatrix}
+  X_0 \\
+  \frac{X_n - X_0}{n}
+  \end{pmatrix}
+  }^2 = \displaystyle \frac{1}{n - 1} \sum_{i = 1}^n \left(X_i - X_{i - 1} - \frac{X_n - X_0}{n}\right)^2
+  = $ \[\frac{1}{n - 1} \sum_{i = 1}^n \left((X_i - X_{i - 1})^2 - 2(X_i - X_{i - 1}) \frac{X_n - X_0}{n} + \left(\frac{X_n - X_0}{n} \right)^2\right) = \] \[ \frac{1}{n - 1}\left(\sum_{i = 1}^n (X_i - X_{i - 1})^2 - \frac{(X_n - X_0)^2}{n}\right) 
+  \]
+  }
   \problem{
   Пусть $X_1, \dots, X_n$- выборка из нормального распределения с параметрами $(a, \sigma^2 )$. Докажите, что статистики $X$ и
 \[ S^2 = \frac{1}{n}\sum_{i = 1}^n (X_i - \overline{X})^2\]
@@ -128,7 +194,60 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
   \problem{
   Взвешивание трех грузов массами $a$ и $b$ производится следующим образом: $n_1$ раз взвешивается первый груз (все ошибки измерения имеют распределение $\ND{0}{\sigma^2}), n_2$ раза взвешивается второй груз на тех же самых весах, затем $n_3$ раза на других весах взвешиваются первый и второй груз вместе, все ошибки измерения на которых имеют распределение $\ND{0}{3\sigma^2}$. Сведите задачу к линейной модели и найдите оценки наименьших квадратов для a и b, а также оптимальную оценку для $\sigma^2$.
   }
-  \solution{}
+  \solution{
+  \[
+  \tilde{X} = 
+  \begin{pmatrix}
+  X_1 \\
+  \vdots \\ 
+  X_{n_1} \\
+  X_{n_1 + 1} \\
+  \vdots \\
+  X_{n_1 + n_2}\\
+  \frac{X_{n_1 + n_2 + 1}}{\sqrt{3}}\\
+  \vdots\\
+  \frac{X_{n_1 + n_2 + n_3}}{\sqrt{3}}
+  \end{pmatrix} = 
+  \begin{pmatrix}
+  1 & 0 \\
+  \vdots & \vdots \\
+  1 & 0 \\
+  0 & 1 \\
+  \vdots & \vdots \\
+  0 & 1 \\
+  \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}} \\
+  \vdots & \vdots \\
+  \frac{1}{\sqrt{3}} & \frac{1}{\sqrt{3}}
+  \end{pmatrix}
+  \begin{pmatrix}
+  a \\ b
+  \end{pmatrix} + \eps \ra Z^TZ =
+  \begin{pmatrix}
+  n_1 + \frac{n_3}{3} & \frac{n_3}{3} \\
+  \frac{n_3}{3} & n_2 + \frac{n_3}{3}
+  \end{pmatrix} \ra \] \[\det Z^TZ = n_1n_2 + \frac{n_3}{3}(n_1 + n_2) \ra
+ (Z^TZ)^{-1} = \frac{1}{ n_1n_2 + \frac{n_3}{3}(n_1 + n_2)}
+  \begin{pmatrix}
+  n_2 + \frac{n_3}{3} & -\frac{n_3}{3} \\
+  -\frac{n_3}{3} & n_1 + \frac{n_3}{3}
+  \end{pmatrix},
+   \]
+   \[ Z^T\tilde{X} = 
+   \begin{pmatrix}
+    \displaystyle \sum_{i = 1}^{n_1} X_i + \frac{1}{3}\sum_{j = n_1 + n_2 + 1}^{n_1 + n_2 + n_3} X_j \\
+    \displaystyle \sum_{k = n_1 + 1}^{n_1 + n_2} X_k + \frac{1}{3}\sum_{j = n_1 + n_2 + 1}^{n_1 + n_2 + n_3} X_j
+   \end{pmatrix}, \text{ Пусть } S_1 =  \sum_{i = 1}^{n_1} X_i, S_2 = \sum_{k = n_1 + 1}^{n_1 + n_2} X_k, S_3 = \sum_{j = n_1 + n_2 + 1}^{n_1 + n_2 + n_3} X_j \ra
+   \]
+   \[
+   \begin{pmatrix} \hat{a} \\ \hat{b} \end{pmatrix} =
+   \frac{1}{ n_1n_2 + \frac{n_3}{3}(n_1 + n_2)}
+   \begin{pmatrix}
+   n_2(S_1 + \frac{S_3}{3}) + \frac{n_3}{3}(S_1 - S_2) \\
+   n_1(S_2 + \frac{S_3}{3}) + \frac{n_3}{3}(S_2 - S_1)
+   \end{pmatrix}
+   \]
+
+  }
   \problem{
   Пусть $X_i , i \in \{1, \dots, n \}$ - независимые случайные величины, распределенные по нормальному закону с параметрами $(a+bi, \sigma^2 )$. Постройте точные доверительные интервалы для параметров $ a, b, \sigma^2$.
   }
@@ -142,10 +261,31 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
   Пусть $X_i \sim \ND{a}{i\sigma^2}$, $i = 1, \dots, n$, $Y_j \sim \ND{jb}{\sigma^2}, j =
   = 1, \dots , m$, - независимые случайные величины, где $a, b, \sigma^2$ - неизвестные параметры. Сведите задачу к линейной модели и постройте $F$ -критерий размера $\alpha$ для проверки гипотезы $H_0 : a + b = 1$.
   }
-  \solution{}
+  \solution{
+  \[
+  \begin{pmatrix}
+  \frac{X_1}{\sqrt{1}} \\
+  \vdots \\
+  \frac{X_n}{\sqrt{n}} \\
+  \frac{Y_1}{\sqrt{1}} \\
+  \vdots\\
+  \frac{Y_m}{\sqrt{m}}
+  \end{pmatrix} = 
+  \begin{pmatrix}
+  \frac{1}{\sqrt{1}} & 0 \\
+  \vdots & \vdots \\
+  \frac{1}{\sqrt{n}} & 0 \\
+  0 & \frac{1}{\sqrt{1}} \\
+  \vdots & \vdots \\
+  0 & \frac{1}{\sqrt{m}}
+  \end{pmatrix}
+  \begin{pmatrix}
+  a \\ b
+  \end{pmatrix} + \eps
+  \]
+  }
   \problem{
-  Используя метод линейной регрессии, постройте приближе-
-ние функции $f(x)$ многочленом третьей степени по следующим данным:
+  Используя метод линейной регрессии, постройте приближение функции $f(x)$ многочленом третьей степени по следующим данным:
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -156,7 +296,56 @@ $x_i$ & 4.0 & 5.2 & 6.1 & 7.0 & 7.9 & 8.6 & 8.9 & 9.5 & 9.9 \\
 \end{tabular}
 \end{center}
   }
-  \solution{}
+  \solution{
+  Пусть искомый многочлен равен $ax^3 + bx^2 + cx + d$. Тогда модель линейной регрессии выглядит следующим образом:
+  \[
+  \begin{pmatrix}
+  f(x_1) \\
+  \vdots \\
+  f(x_9)
+  \end{pmatrix} = 
+  \begin{pmatrix}
+  x_1^3 & x_1^2 & x_1 & 1 \\
+  \vdots & \vdots & \vdots & \vdots \\
+  x_9^3 & x_9^2 & x_9 & 1
+  \end{pmatrix}
+  \begin{pmatrix}
+  a \\ b \\ c \\ d
+  \end{pmatrix} + \eps
+  \]
+  Если считать это руками, то уйдет миллион лет и, кстати, если вычилять точно в виде дробей, оценивая $a/1000, b/100, c/10, d$, то получится такая матрица $(Z^TZ)^{-1}$
+  \begin{center}
+  \includegraphics[width=\textwidth]{pictures/29-1.png}
+  \end{center}
+  Поэтому приведем программу на python:
+  \begin{python}
+  import numpy as np
+
+  X = [4.0, 5.2, 6.1, 7.0, 7.9, 8.6, 8.9, 9.5, 9.9]
+  F = [3.9, 5.0, 5.7, 6.5, 7.1, 7.6, 7.8, 8.1, 8.4]
+  Z = list(map(lambda x: [x**3, x**2, x, 1], X))
+  Z_np = np.array(Z)
+  F_np = np.array(F)
+  theta = np.linalg.inv(Z_np.T @ Z_np) @ Z_np.T @ F_np
+  a, b, c, d = theta
+  print(a, b, c, d)
+  \end{python} и получим 
+  \[(a, b, c, d) = (-0.00100145912636040, -0.0114849959500949, 1.07154905548792, -0.137289441132785) \]
+  Вроде неплохо:
+  \begin{python}
+  import matplotlib.pyplot as plt
+
+  plt.scatter(X, F, alpha=0.5)
+  xseq = np.linspace(min(X), max(X), num=100)
+  plt.plot(xseq, a * xseq**3 + b * xseq**2 + c * xseq + d,
+           label=f'y={round(a, 3)}x^3 + {round(b, 3)}x^2 + {round(c, 3)}x + {round(d, 3)}')
+  plt.legend()
+  plt.show()
+  \end{python}
+  \begin{center}
+  \includegraphics[width=0.5\textwidth]{pictures/29-2.png}
+  \end{center}
+  }
   \problem{
   Убедиться в том, что наиболее мощный критерий для различения двух простых гипотез о симметричном относитлтеьно нуля распределении набдюдаемой случайной величины $\xi \text{ } H_0 \text{  } \LL(\xi) = R[-a, a]$ и $H_1 \text{ } \LL(\xi) = \ND{0}{\sigma^2}$ ($a$ и $\sigma$ известны) имеет для больших выборок следующую асимптотическую форму 
   \[ \mathfrak{X_{1, a}^*} = \left\{ \sum_{i = 1}^n X_i^2 \le \frac{n}{3}a^2 + \zeta_a \frac{2a^2}{3}\sqrt{\frac{n}{5}}\right\}, \Phi(\zeta_a) = a\]
