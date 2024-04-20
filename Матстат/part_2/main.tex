@@ -28,20 +28,48 @@
   \[p_{\theta}(x) = \frac{3x^2}{8\theta^3}I_{[0, 2\theta]}(x)\]
   С помощью статистики $X_{(1)}$ постройте точный доверительный интервал уровня доверия $\gamma$ для параметра $\theta$.
   }
-  \solution{}
+  \solution{
+  $F_{X_{(1)}}(x) = 1 - (1 - F_{X_1}(x))^n = 1 - (1 - \frac{x^3}{8\theta^3})^n, x \in [0, 2\theta] \ra F_{\frac{X_{(1)}}{2\theta}}(x) = F_{X_{(1)}}(2\theta x) = 1 - (1 - x^3)^n, x \in [0, 1]$.
+  \[P_{\theta}\left(z_{p_1} < \frac{X_{(1)}}{2\theta} < z_{p_2}\right) = P_{\theta}\left(\frac{X_{(1)}}{2z_{p_2}} < \theta < \frac{X_{(1)}}{2z_{p_1}}\right) = p_2 - p_1 = \gamma \]
+  Положим $p_2 = 1, p_1 = 1 - \gamma$, тогда $z_{p_2} = 1, z_{p_1} = \sqrt[3]{1 - \sqrt[n]{\gamma}}$\\
+  Ответ: $\left(\frac{X_{(1)}}{2}, \frac{X_{(1)}}{2\sqrt[3]{1 - \sqrt[n]{\gamma}}}\right)$
+  }
   \problem{
   $X_1, \dots, X_n$ - выборка, $X_1 = \xi + \eta$, где $\xi$, $\eta$ - независимые случайные величины, $\xi \sim R[0, \theta], \eta \sim Bin(1, \theta)$. Постройте доверительный интервал для $\theta$ уровня доверия $1 - \alpha $ с помощью неравенства Чебышева.
   }
-  \solution{}
+  \solution{
+  $\E X_1 = \E \xi + \E \eta = \theta/2 + \theta = \frac{3\theta}{2}, \D X_1 = \D \xi + \D \eta = \frac{\theta^2}{12} + \theta(1 - \theta) = \theta - \frac{11}{12}\theta^2$
+  \[P_{\theta}\left(\left|\sum_{i = 1}^n X_i - \frac{3\theta n}{2}\right| \ge \eps n\right) \le \frac{\theta - \frac{11}{12}\theta^2}{\eps^2n} \ra P_{\theta}\left(\overline{X} - \eps < \frac{3\theta}{2} < \overline{X} + \eps\right) \ge 1 - \frac{\theta - \frac{11}{12}\theta^2}{\eps^2n} = 1 - \alpha \ra 
+  \]
+  \[
+  \eps = \sqrt{\frac{\theta - \frac{11}{12}\theta^2}{\alpha n}}, \text{ Получаем } 
+  \begin{cases}
+  \overline{X} - \frac{3\theta}{2} < \eps, \\
+  \overline{X} - \frac{3\theta}{2} > -\eps
+  \end{cases} \lra 
+  \left(\overline{X} - \frac{3\theta}{2} \right)^2 < \eps^2 \lra \] \[
+  \theta^2 \left(\frac{9}{4} + \frac{11}{12\alpha n}\right) - \theta \left(3\overline{X} + \frac{1}{\alpha n}\right) + \overline{X}^2 < 0 \ra
+  \]
+  \[
+  \text{Ответ: } \left(\frac{3\overline{X} + \frac{1}{\alpha n} - \sqrt{\left(3\overline{X} + \frac{1}{\alpha n}\right)^2 - 4\left(\frac{9}{4} + \frac{11}{12\alpha n}\right)\overline{X}^2}}{2\left(\frac{9}{4} + \frac{11}{12\alpha n}\right)}, \frac{3\overline{X} + \frac{1}{\alpha n} + \sqrt{\left(3\overline{X} + \frac{1}{\alpha n}\right)^2 - 4\left(\frac{9}{4} + \frac{11}{12\alpha n}\right)\overline{X}^2}}{2\left(\frac{9}{4} + \frac{11}{12\alpha n}\right)} \right)
+  \]
+  }
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из гамма-распределения с параметрами $(\theta, \lambda)$. Постройте асимптотический доверительный интервал для $\theta$ уровня доверия $\alpha$, если а) $\lambda$ известно, б) $\lambda$ неизвестно.
   }
-  \solution{}
+  \solution{~
+  \begin{enumerate}[label=\alph*]
+  \item По ЦПТ $\sqrt{n}(\overline{X} - \lambda \theta) \tod \ND{0}{\theta \lambda^2}$
+  Пусть $z_p $ - квантиль уровня $p$ распределения $\ND{0}{1}$. Так как $\lambda\sqrt{\theta}$ непрерывна по $\theta$ на $\R_{+}$, то
+  \[\lim_{n \to \infty} P\left(z_{\frac{1 - \alpha}{2}} < \sqrt{n} \frac{\overline{X} - \lambda \theta}{\lambda \sqrt{\overline{X}}} < z_{\frac{1 + \alpha}{2}}\right) = \alpha\]
+  Ответ: $\left(\frac{\overline{X} - \frac{z_{\frac{1 + \alpha}{2}}\lambda \sqrt{\overline{X}}}{\sqrt{n}}}{\lambda}, \frac{\overline{X} - \frac{z_{\frac{1 - \alpha}{2}}\lambda \sqrt{\overline{X}}}{\sqrt{n}}}{\lambda}\right)$
+  \end{enumerate}
+  }
   \problem{
   Имеется $X_1$ - выборка объема 1. Основная гипотеза $H_0$ состоит в том, что $X_1$ имеет равномерное распределение на отрезке $[0, 1]$, альтернатива - в том, что $X_1$ имеет показательное распределение с параметром 1. Постройте наиболее мощный критерий уровня значимости $\alpha$ для различения этих гипотез и вычислите его мощность.
   }
   \solution{}
-  \problem{*
+  \problem{
   Пусть $X_1, \dots, X_n$ - выборка из равномерного распределения на отрезке $[0, \theta], \theta > 0$. Постройте р.н.м.к. уровня значимости $\alpha$ для проверки гипотезы $H_0 : \theta = \theta_0$ против альтернативы $H_1: \theta \ne \theta_0$ в виде
 \[S(X_1, \dots, X_n) = \{ X_{(n)} \le c\theta_0\} \cup \{ X_{(n)} > \theta_0 \}\]
   }
@@ -92,9 +120,32 @@ P(\xi = 0) = \theta, P(\xi = 1) = \theta, \]
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из распределения:
 а)$Bern(\theta)$, б)$Pois(\theta)$, в)$\ND{\theta}{1}$, г)$\exp(\theta)$.
-Ростроить доверительный интервал для параметра $\theta$.
+Построить доверительный интервал для параметра $\theta$.
   }
-  \solution{}
+  \solution{
+  Будем строить доверительные интервалы уровня доверия $\gamma = 1 - \alpha$
+  \begin{enumerate}[label=\alph*]
+  \item 
+  \[P_{\theta}\left(\left|\sum_{i = 1}^n X_i - \theta n \right| \ge \eps n\right) \le \frac{\theta(1 - \theta)}{\eps^2n} \ra P_{\theta}\left(\overline{X} - \eps < \theta < \overline{X} + \eps\right) \ge 1 - \frac{\theta(1 - \theta)}{\eps^2n} = 1 - \alpha \ra 
+  \]
+  \[
+  \eps = \sqrt{\frac{\theta(1 - \theta)}{\alpha n}}, \text{ Получаем } 
+  \left(\overline{X} - \theta \right)^2 < \eps^2 \lra 
+  \theta^2 \left(1 + \frac{1}{\alpha n}\right) - \theta \left(2\overline{X} + \frac{1}{\alpha n}\right) + \overline{X}^2 < 0 \ra
+  \]
+  \[
+  \text{Ответ: }\left(\frac{2\overline{X} + \frac{1}{\alpha n} - \sqrt{\left(2\overline{X} + \frac{1}{\alpha n}\right)^2 - 4\left(1 + \frac{1}{\alpha n}\right)\overline{X}^2}}{2\left(1 + \frac{1}{\alpha n}\right)}, \frac{2\overline{X} + \frac{1}{\alpha n} + \sqrt{\left(2\overline{X} + \frac{1}{\alpha n}\right)^2 - 4\left(1 + \frac{1}{\alpha n}\right)\overline{X}^2}}{2\left(1 + \frac{1}{\alpha n}\right)} \right)
+  \]
+  \item По аналогии с предыдущей задачей, $\E X = \theta, \D X = \theta$, получаем неравенство $\theta^2 - \theta\left(2\overline{X} + \frac{1}{\alpha}\right) + \overline{X}^2 < 0 \ra$
+  \[\text{Ответ: } \left(\frac{2\overline{X} + \frac{1}{\alpha} + \sqrt{\frac{4\overline{X}}{\alpha} + \frac{1}{\alpha^2}}}{2}, \frac{2\overline{X} + \frac{1}{\alpha} - \sqrt{\frac{4\overline{X}}{\alpha} + \frac{1}{\alpha^2}}}{2}\right)\]
+  \item $\sqrt{n}(\overline{X} - \theta) \sim \ND{0}{1}$. Пусть $z_p $ - квантиль уровня $p$ распределения $\ND{0}{1}$. Тогда $P(z_{\alpha/2} < \sqrt{n}(\overline{X} - \theta) < -z_{\alpha / 2}) \ra$
+  Ответ: $\left(\overline{X} + \frac{z_{\alpha/2}}{\sqrt{n}}, \overline{X} - \frac{z_{\alpha/2}}{\sqrt{n}} \right)
+  $
+  \item Заметим, что $n X_{(1)}\theta \sim Exp(1)$ Пусть $z_p$ - p квантиль распределения $Exp(1)$. Тогда 
+  $P(z_{p_1} < n X_{(1)}\theta < z_{p_2}) = P(\frac{z_{p_1}}{nX_{(1)}} < \theta < \frac{z_{p_2}}{nX_{(1)}}) \ra l \sim z_{p_2} - z_{p_1} = \ln \frac{1 - p_1}{1 - p_2} = \ln(1 + \frac{\gamma}{1 - p_2}) \to \min_{p_2 \in [\gamma, 1]} \ra p_2 = \gamma, p_1 = 0 \ra $
+  Ответ: $\left(0, \frac{\ln \gamma}{n X_{(1)}}\right)$
+  \end{enumerate}
+  }
   \problem{
   Рассмотрим распределения Коши с плотностью $p_{\theta}(x) = \frac{1}{\pi(1 + (x - \theta)^2)}$. С помощью выборочной медианы построить доверительный интервал для $\theta^2$.
   }
