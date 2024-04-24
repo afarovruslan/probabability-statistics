@@ -233,15 +233,39 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
   \]
   }
   \problem{
-  Пусть $X_1, \dots, X_n$- выборка из нормального распределения с параметрами $(a, \sigma^2 )$. Докажите, что статистики $X$ и
+  Пусть $X_1, \dots, X_n$- выборка из нормального распределения с параметрами $(a, \sigma^2 )$. Докажите, что статистики $\overline{X}$ и
 \[ S^2 = \frac{1}{n}\sum_{i = 1}^n (X_i - \overline{X})^2\]
 независимы и вычислите распределение статистики $nS^2$.
   }
-  \solution{}
+  \solution{
+  Построив модель линейной регрессии, мы обнаружим, что $\overline{X}$ - оценка по МНК $\ra$ $  
+  \begin{pmatrix}
+  \overline{X} \\
+  \vdots \\
+  \overline{X}
+  \end{pmatrix} = pr_{L} X, S^2 = \frac{1}{n}\norm{X - 
+  \begin{pmatrix}
+  \overline{X} \\
+  \vdots \\
+  \overline{X}
+  \end{pmatrix}
+  }^2 = 
+  \frac{1}{n}
+  \norm{X - 
+  pr_L X
+  }^2 = \frac{1}{n} \norm{pr_{L^{\perp}} X}^2
+  $, но по теореме об ортогональной проекции $pr_{L} X \independent pr_{L^{\perp}} X \ra \overline{X} \independent S^2$
+  Также по этой теореме $\frac{1}{\sigma^2} \norm{pr_{L^{\perp}} X}^2 \sim \chi^2(n - 1) \ra \frac{nS^2}{\sigma^2} \sim \chi^2(n - 1) \ra nS^2 \sim \sigma^2 \chi^2(n - 1)$
+  }
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из $\ND{a}{\sigma^2}$ (оба параметра неизвестны). Постройте точные доверительные интервалы для каждого из параметров $a, \sigma^2$.
   }
-  \solution{}
+  \solution{
+  Из з. 23 известно, что 
+  $\frac{nS^2}{\sigma^2} \sim \chi^2(n - 1) \ra $ доверительный интервал для $\sigma^2 \left(0, \frac{nS^2}{\chi^2_{1 - \gamma}(n - 1)}\right)$
+  Рассмотрим $\frac{\overline{X} - a}{\sqrt{nS^2}} = \frac{\overline{X} - a}{\sigma} \frac{1}{\sqrt{\frac{nS^2}{\sigma^2}}} \sim t(n - 1) \ra $ \\
+  Ответ: $\left(\overline{X} - t_{\frac{1 + \gamma}{2}}(n - 1)\sqrt{\sum_{i = 1}^n (X_i - \overline{X})^2}, \overline{X} - t_{\frac{1 - \gamma}{2}}(n - 1)\sqrt{\sum_{i = 1}^n (X_i - \overline{X})^2}\right)$
+  }
   \problem{
   Взвешивание трех грузов массами $a$ и $b$ производится следующим образом: $n_1$ раз взвешивается первый груз (все ошибки измерения имеют распределение $\ND{0}{\sigma^2}), n_2$ раза взвешивается второй груз на тех же самых весах, затем $n_3$ раза на других весах взвешиваются первый и второй груз вместе, все ошибки измерения на которых имеют распределение $\ND{0}{3\sigma^2}$. Сведите задачу к линейной модели и найдите оценки наименьших квадратов для a и b, а также оптимальную оценку для $\sigma^2$.
   }
@@ -302,7 +326,101 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
   \problem{
   Пусть $X_i , i \in \{1, \dots, n \}$ - независимые случайные величины, распределенные по нормальному закону с параметрами $(a+bi, \sigma^2 )$. Постройте точные доверительные интервалы для параметров $ a, b, \sigma^2$.
   }
-  \solution{}
+  \solution{
+   Запишем модель линейной регрессии 
+   \[X = 
+   \begin{pmatrix}
+   1 & 1 \\
+   1 & 2 \\
+   \vdots & \vdots \\
+   1 & n
+   \end{pmatrix}
+   \begin{pmatrix}
+   a \\ b
+   \end{pmatrix} + \eps, Z^TZ = 
+   \begin{pmatrix}
+   n & \frac{n(n + 1)}{2} \\
+   \frac{n(n + 1)}{2} & \frac{n(n + 1)(2n + 1)}{6}
+   \end{pmatrix} \ra 
+   (Z^TZ)^{-1} = 
+   \frac{2}{n(n - 1)}\begin{pmatrix}
+   2n + 1 & \-3 \\
+   -3 & \frac{6}{n + 1}
+   \end{pmatrix}
+   \] \[
+   Z^T X = 
+   \begin{pmatrix}
+   \sum_{i = 1}^n X_i \\
+   \sum_{i = 1}^n i X_i
+   \end{pmatrix}
+   \ra
+   \begin{pmatrix}
+   \hat{a} \\ \hat{b}
+   \end{pmatrix} = 
+   \frac{2}{n(n - 1)}
+   \begin{pmatrix}
+   \sum_{i = 1}^n X_i\left(2n + 1 - 3i\right) \\
+   3 \sum_{i = 1}^n X_i \left(\frac{2i}{n + 1} - 1 \right)
+   \end{pmatrix}
+   \]
+   Как известно из лекций, 
+   \[
+   \frac{1}{\sigma^2}\norm{X - Z
+   \begin{pmatrix}
+   \hat{a} \\ \hat{b}
+   \end{pmatrix}
+   }^2 \sim \chi^2(n - 2)
+   \]
+   Тогда 
+   \[ 
+   P\left(\frac{1}{\sigma^2}\norm{X - Z
+   \begin{pmatrix}
+   \hat{a} \\ \hat{b}
+   \end{pmatrix}
+   }^2 > \chi_{1 - \gamma}^2(n - 2)\right) = \gamma \ra \left(0, \frac{1}{\chi_{1 - \gamma}^2(n - 2)}\norm{X - Z
+   \begin{pmatrix}
+   \hat{a} \\ \hat{b}
+   \end{pmatrix}
+   }^2 \right) - 
+   \]
+   точный доверительный интервал для $\sigma^2$ уровня доверия $\gamma$. Также известно, что 
+   \[
+   \sqrt{\frac{n - 2}{\frac{2(2n + 1)}{n(n - 1)}}} \frac{\hat{a} - a}{\norm{X - Z
+   \begin{pmatrix}
+   \hat{a} \\ \hat{b}
+   \end{pmatrix}
+   }} \sim t(n - 2) \ra
+   \]
+   Доверительный интервал для $a$ равен 
+   \[
+   \left(
+   \hat{a} - t_{\frac{1 + \gamma}{2}}(n - 2) \frac{\norm{X - Z
+   \begin{pmatrix}
+   \hat{a} \\ \hat{b}
+   \end{pmatrix}
+   }}{\sqrt{\frac{2(2n + 1)}{n(n - 1)(n - 2)}}},
+   \hat{a} - t_{\frac{1 - \gamma}{2}}(n - 2) \frac{\norm{X - Z
+   \begin{pmatrix}
+   \hat{a} \\ \hat{b}
+   \end{pmatrix}
+   }}{\sqrt{\frac{2(2n + 1)}{n(n - 1)(n - 2)}}},
+   \right)\]
+   Аналогично для $b$
+   \[
+   \left(
+   \hat{b} - t_{\frac{1 + \gamma}{2}}(n - 2) \frac{\norm{X - Z
+   \begin{pmatrix}
+   \hat{a} \\ \hat{b}
+   \end{pmatrix}
+   }}{\sqrt{\frac{12(n - 2)}{n(n - 1)(n + 1)}}},
+   \hat{b} - t_{\frac{1 - \gamma}{2}}(n - 2) \frac{\norm{X - Z
+   \begin{pmatrix}
+   \hat{a} \\ \hat{b}
+   \end{pmatrix}
+   }}{\sqrt{\frac{12(n - 2)}{n(n - 1)(n + 1)}}},
+   \right)
+   \]
+  }
   \problem{
   $X_1, \dots, X_n$ - выборка из распределения $\ND{a_1}{\sigma^2}, Y_1 , \dots , Y_m$ - выборка из распределения $\ND{a_2}{\sigma^2}, Z_1 , \dots , Z_k$ - выборка из распределения $\ND{a_3}{\sigma^2}$. Постройте $F$ -критерий размера $\alpha$ для проверки гипотезы а) $H_0 : a_1 = a_2$ и $a_1 + a_2 = a_3 $,
 б) $H_0 : a_1 = 2a_2$ и $a_1 + 3a_2 = a_3$.
