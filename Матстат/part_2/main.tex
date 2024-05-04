@@ -3,25 +3,59 @@
 \begin{document}
 	\input{titlepage}
 	\section{Байесовские оценки}
+  \noindent \textit{Напоминание}(себе и для определенности(в Википедии, например, другая плотность))
+  Плотность распределения $\Gamma(\alpha, \lambda)$ с параметрами $\alpha > 0, \lambda > 0$ равна
+  \[
+  p_{\alpha, \lambda}(x) = \frac{\alpha^{\lambda} x^{\lambda - 1} e^{-\alpha x}}{\Gamma(\lambda)}I_{\R_{+}}(x)
+  \]
   \problem{
   $X_1 \sim Exp(\theta)$, $\theta$ имеет сопряженное априорное распределение $\Gamma(\alpha, \beta)$. Проверьте оценку $\theta^* = \frac{n + \beta}{\alpha + \sum_{i = 1}^n X_i}$ на состоятельность.
   }
-  \solution{}
+  \solution{
+  По УЗБЧ $\overline{X} \toac \frac{1}{\theta}$. По теореме о наследовании сходимости $\theta^* = \frac{1 + \frac{\beta}{n}}{\frac{\alpha}{n} + \overline{X}} \toac \theta \ra$ оценка сильно состоятельна. 
+  }
   \problem{
   По выборке $X_1, \dots, X_n$ из пуассоновского распределения с параметром $\theta$, где $\theta \sim \Gamma(\alpha, \lambda)$, постройте наилучшую оценку в байесовском подходе с квадратичной функцией потерь.
   }
-  \solution{}
+  \solution{
+  По теореме, лучшей оценкой в байесовском подходе с квадратичной функцией потерь является байесовская оценка.
+  \[q(t)p_{t}(x) = \frac{\alpha^{\lambda}t^{\lambda - 1} e^{-\alpha t}}{\Gamma(\lambda)}I_{\R_{+}}(t) \frac{t^{\sum_{i = 1}^n x_i}}{x_1!\dots x_n!}e^{-nt} \ra \]
+  \[ \int_{\Theta} q(t)p_{t}(x) dt = \frac{\alpha^{\lambda}}{\Gamma(\lambda) x_1!\dots x_n!}\int_{0}^{+\infty} t^{\lambda + \sum_{i = 1}^n x_i - 1}e^{-t(\alpha + n)}dt = \frac{\alpha^{\lambda} (\alpha + n)^{\lambda + \sum_{i = 1}^n x_i}}{x_1!\dots x_n!} \frac{\Gamma(\lambda + \sum_{i = 1}^n x_i)}{\Gamma(\lambda)} \ra\]
+  \[
+  p_{\theta | X} \sim \Gamma\left(\alpha + n, \lambda + \sum_{i = 1}^n X_i\right) \ra \hat{\theta} = \frac{\lambda + \sum_{i = 1}^n X_i}{\alpha + n}
+  \]
+  }
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из нормального распредения с параметрами $(\theta, 1)$. Найдите байесовскую оценку параметра $\theta$, если априорное распределение $\theta$ есть $Bin(1, p)$. Будет ли полученная оценка состоятельной оценкой параметра $\theta$?
   }
-  \solution{}
+  \solution{
+  \[ Bin(1, p) = Bern(p), q(t)p_{t}(x) = p^t(1 - p)^{1 - t} \frac{1}{\sqrt{2\pi}}e^{-\frac{\sum_{i = 1}^n (X_i - t)^2}{2}} \ra \] \[
+   \int_{\theta} q(t)p_{t}(x) dt = p \frac{1}{\sqrt{2\pi}}e^{-\frac{\sum_{i = 1}^n (X_i - 1)^2}{2}} + (1 - p) \frac{1}{\sqrt{2\pi}}e^{-\frac{\sum_{i = 1}^n X_i^2}{2}} = \frac{e^{-\frac{\sum_{i = 1}^n X_i^2}{2}}}{\sqrt{2\pi}}\left(pe^{\sum_{i = 1}^n X_i - \frac{1}{2}} + 1 - p \right) \ra
+   \]
+   \[
+   p_{\theta | X}(t | x) = \frac{p^t(1 - p)^{1 - t}e^{\sum_{i = 1}^n X_i t - \frac{t}{2}}}{pe^{\sum_{i = 1}^n X_i - \frac{1}{2}} + 1 - p} \ra \] \[\hat{\theta} = \frac{p^2e^{\sum_{i = 1}^n X_i - \frac{1}{2}} + (1 - p)^2}{pe^{\sum_{i = 1}^n X_i - \frac{1}{2}} + 1 - p} = 1 + \frac{1 - p}{pe^{\sum_{i = 1}^n X_i - \frac{1}{2}} + 1 - p} = 1 + \frac{1 - p}{p(e^{\overline{X} - \frac{1}{2n}})^n + 1 - p}
+   \]
+   По УЗБЧ $\overline{X} \toac \theta$ и по наследовании сходимости получаем, что $\hat{\theta} \toac 1 \ne \theta \ra $ оценка несостоятельна. 
+  }
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из равномерного распределения на отрезке $[0, \theta]$. Найдите байесовскую оценку параметра $\theta$, если $\theta$ имеет априорное распределение а) равномерно на отрезке $[0, 1]$, б) с плотностью $q(t) = 1/t^2$ при $t \ge 1$. Проверьте полученные оценки на состоятельность.
   }
-  \solution{}
+  \solution{~
+  \begin{enumerate}
+    \item \[q(t) p_t(x) = I_{[0,1]}(t)\frac{1}{t}I_{0 \le X_{(1)} \le X_{(n)} \le t} \ra \int_{\Theta}q(t) p_t(x)dt = \int_{0}^{X_{(n)}} \frac{dt}{t} \]
+    Интеграл расходится, че делать я не знаю((
+    \item \[q(t) p_t(x) = I_{[1, +\infty)}(t)\frac{1}{t^3}I_{0 \le X_{(1)} \le X_{(n)} \le t} \ra \int_{\Theta}q(t) p_t(x)dt =  \int_{1}^{X_{(n)}}t^{-3}dt = \frac{1}{2}\left(1 - \frac{1}{X_{(n)}^2}\right) \ra \] \[\hat{\theta} = \frac{2\left(1 - \frac{1}{X_{(n)}}\right)}{1 - \frac{1}{X_{(n)}^2}} = 2\left(1 + \frac{1}{X_{(n)}}\right)\]
+    Из предыдущего задания известно, что $X_{(n)} \toac \theta \ra$ по теореме о наследовании сходимости, получаем, что $\hat{\theta} \toac 2(1 + \frac{1}{\theta}) \ne \theta \ra$ оценка несостоятельна
+  \end{enumerate}
+  }
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из нормального распределения с параметрами $(\theta, 1)$. Найдите байесовскую оценку параметра $\theta$, если априорное распределение $\theta$ есть $\ND{b}{\sigma^2}$.}
-  \solution{~}
+  \solution{
+  \[ q(t) p_t(x) = c \exp\left(-\frac{(t - b)^2}{2\sigma^2} - \frac{\sum_{i = 1}^n (X_i - t)^2}{2}\right) = c \exp\left(-\frac{1}{2\sigma^2}\left((t - b)^2 + \sigma^2 \sum_{i = 1}^n (X_i - t)^2\right)\right)\]
+  \[(t - b)^2 + \sigma^2 \sum_{i = 1}^n (X_i - t)^2 = t^2(1 + \sigma^2n) -2t\left(b + \sigma^2 \sum_{i = 1}^n X_i\right) + b^2 + \sigma^2\sum_{i = 1}^n X_i^2 = \]
+  \[(1 + \sigma^2n)\left(t - \frac{b + \sigma^2 \sum_{i = 1}^n X_i}{1 + \sigma^2n}\right)^2 + b^2 + \sigma^2\sum_{i = 1}^n X_i^2 - \frac{\left(b + \sigma^2 \sum_{i = 1}^n X_i \right)^2}{1 + \sigma^2n} \ra \]
+  \[q(t) p_t(x) = \tilde{c}\exp\left(-\frac{1}{2}\frac{1 + \sigma^2n}{\sigma^2}\left(t - \frac{b + \sigma^2 \sum_{i = 1}^n X_i}{1 + \sigma^2n}\right)^2\right) \ra p_{\theta | X} \sim \ND{\frac{b + \sigma^2 \sum_{i = 1}^n X_i}{1 + \sigma^2n}}{\frac{\sigma^2}{1 + \sigma^2n}} \ra \] \[ \hat{\theta} = \frac{b + \sigma^2 \sum_{i = 1}^n X_i}{1 + \sigma^2n}\]
+  }
   \section{Проверка гипотез и доверительное оценивание}
   \problem{
   $X_1, \dots, X_n$ - выборка из распределения с плотностью
@@ -425,7 +459,126 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
   $X_1, \dots, X_n$ - выборка из распределения $\ND{a_1}{\sigma^2}, Y_1 , \dots , Y_m$ - выборка из распределения $\ND{a_2}{\sigma^2}, Z_1 , \dots , Z_k$ - выборка из распределения $\ND{a_3}{\sigma^2}$. Постройте $F$ -критерий размера $\alpha$ для проверки гипотезы а) $H_0 : a_1 = a_2$ и $a_1 + a_2 = a_3 $,
 б) $H_0 : a_1 = 2a_2$ и $a_1 + 3a_2 = a_3$.
   }
-  \solution{}
+  \solution{
+  Запишем модель линейной регрессии: 
+  \[
+  \begin{pmatrix}
+  X_1 \\
+  \vdots \\
+  X_n \\
+  Y_1 \\
+  \vdots \\
+  Y_m \\
+  Z_1 \\
+  \vdots \\
+  Z_k
+  \end{pmatrix} = 
+  \begin{pmatrix}
+  1 & 0 & 0 \\
+  \vdots \\
+  1 & 0 & 0\\
+  0 & 1 & 0 \\
+  \vdots \\
+  0 & 1 & 0 \\
+  0 & 0 & 1 \\
+  \vdots \\
+  0 & 0 & 1
+  \end{pmatrix}
+  \begin{pmatrix}
+  a_1 \\ a_2 \\ a_3 
+  \end{pmatrix} + \eps, (Z^TZ)^{-1} = 
+  \begin{pmatrix}
+  \frac{1}{n} & 0 & 0 \\
+  0 & \frac{1}{m} & 0 \\
+  0 & 0 & \frac{1}{k}
+  \end{pmatrix},
+  \hat{a} = \begin{pmatrix} \overline{X} \\ \overline{Y} \\ \overline{Z} \end{pmatrix}
+  \]
+  \[\hat{\sigma^2} = \frac{1}{n + m + k - 3}\left(\sum_{i = 1}^n (X_i - \overline{X})^2 + \sum_{i = 1}^m (Y_i - \overline{Y})^2 + \sum_{i = 1}^k (Z_i - \overline{Z})^2\right)\]
+  \begin{enumerate}[label=\alph*]
+    \item $A = 
+    \begin{pmatrix}
+    1 & -1 & 0\\
+    1 & 1 & -1
+    \end{pmatrix},
+    D =
+    \begin{pmatrix}
+    \frac{1}{n} + \frac{1}{m} & \frac{1}{n} - \frac{1}{m} \\
+    \frac{1}{n} - \frac{1}{m} & \frac{1}{n} + \frac{1}{m} + \frac{1}{k}
+    \end{pmatrix}, \hat{\beta} =
+    \begin{pmatrix}
+    \hat{a_1} - \hat{a_2} \\
+    \hat{a_1} + \hat{a_2} - \hat{a_3}
+    \end{pmatrix}
+    $
+    \[
+    (\det D)^{-1} = \frac{mnk}{3k + m + n} \ra D^{-1} = \frac{1}{3k + m + n}
+    \begin{pmatrix}
+    mk + nk + nm & nk - mk \\
+    nk - mk & mk + nk 
+    \end{pmatrix} \ra 
+    \]
+    \[S_{F} = 
+    \{
+    \begin{pmatrix}
+    \overline{X} - \overline{Y} & \overline{X} + \overline{Y} - \overline{Z}
+    \end{pmatrix}
+    \begin{pmatrix}
+    mk + nk + nm & nk - mk \\
+    nk - mk & mk + nk 
+    \end{pmatrix}
+        \begin{pmatrix}
+    \overline{X} - \overline{Y} \\ \overline{X} + \overline{Y} - \overline{Z}
+    \end{pmatrix}
+    \ge
+    \] \[
+    \frac{2(3k + n + m)}{m + n + k - 3}f_{1 - \alpha}(2, n + m + k - 3)
+    \}
+    \]
+    \item $A = 
+    \begin{pmatrix}
+    1 & -2 & 0 \\
+    1 & 3 & -1
+    \end{pmatrix}, 
+    D = 
+    \begin{pmatrix}
+    \frac{1}{n} + \frac{4}{m} & \frac{1}{n} - \frac{6}{m} \\
+    \frac{1}{n} - \frac{6}{m} & \frac{1}{n} + \frac{9}{m} + \frac{1}{k}
+    \end{pmatrix},
+    \hat{\beta} - \beta_0 = 
+    \begin{pmatrix}
+    \overline{X} - 2\overline{Y} \\
+    \overline{X} + 3\overline{Y} - \overline{Z}
+    \end{pmatrix}
+    $
+    \[
+    (\det D)^{-1} = \frac{mnk}{25k + m + 4n} \ra D^{-1} = \frac{1}{25k + m + 4n}
+    \begin{pmatrix}
+    mk + 9nk + nm & 6nk - mk \\
+    6nk - mk & mk + 4nk 
+    \end{pmatrix} \ra 
+    \]
+    \[S_{F} = 
+    \{
+    \begin{pmatrix}
+    \overline{X} - 2\overline{Y} &
+    \overline{X} + 3\overline{Y} - \overline{Z}
+    \end{pmatrix}
+    \begin{pmatrix}
+    mk + 9nk + nm & 6nk - mk \\
+    6nk - mk & mk + 4nk 
+    \end{pmatrix}
+    \begin{pmatrix}
+    \overline{X} - 2\overline{Y} \\
+    \overline{X} + 3\overline{Y} - \overline{Z}
+    \end{pmatrix}
+    \ge
+    \] \[
+    \frac{2(25k + m + 4n)}{m + n + k - 3}f_{1 - \alpha}(2, n + m + k - 3)
+    \}
+    \]
+  \end{enumerate}
+  }
   \problem{
   Пусть $X_i \sim \ND{a}{i\sigma^2}$, $i = 1, \dots, n$, $Y_j \sim \ND{jb}{\sigma^2}, j =
   = 1, \dots , m$, - независимые случайные величины, где $a, b, \sigma^2$ - неизвестные параметры. Сведите задачу к линейной модели и постройте $F$ -критерий размера $\alpha$ для проверки гипотезы $H_0 : a + b = 1$.
@@ -450,7 +603,24 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
   \end{pmatrix}
   \begin{pmatrix}
   a \\ b
-  \end{pmatrix} + \eps
+  \end{pmatrix} + \eps,
+  (Z^TZ)^{-1} = 
+  diag\left(\frac{2}{n(n+1)}, \frac{2}{m(m+1)}\right), \hat{\theta} = 
+  \begin{pmatrix}
+  \frac{2}{n(n+1)} \sum_{i = 1}^n \frac{X_i}{i} \\
+  \frac{2}{m(m+1)} \sum_{j = 1}^m \frac{Y_j}{j}
+  \end{pmatrix}
+  \]
+    \[
+  \hat{\sigma^2} = \frac{1}{n + m - 2}\left(\sum_{k = 1}^n \frac{1}{k}\left(X_k - \sum_{i = 1}^n \frac{X_i}{i}\right)^2 + \sum_{p = 1}^m \frac{1}{p}\left(X_p - \sum_{j = 1}^m \frac{Y_j}{j}\right)^2 \right)
+  \]
+  \[
+  A = \begin{pmatrix} 1 & -1 \end{pmatrix}
+  \ra D = \frac{2}{n(n+1)} + \frac{2}{m(m+1)} \ra \]
+  \[  \frac{n + m - 2}{\frac{2}{n(n+1)} + \frac{2}{m(m+1)}} \frac{\left(\frac{2}{n(n+1)} \sum_{i = 1}^n \frac{X_i}{i} + \frac{2}{m(m+1)} \sum_{j = 1}^m \frac{Y_j}{j} - 1\right)^2}{\sum_{k = 1}^n \frac{1}{k}\left(X_k - \sum_{i = 1}^n \frac{X_i}{i}\right)^2 + \sum_{p = 1}^m \frac{1}{p}\left(X_p - \sum_{j = 1}^m \frac{Y_j}{j}\right)^2} \sim F(1, n + m -2) \ra
+  \]
+  \[
+  S_F = \left\{\frac{\left(\frac{2}{n(n+1)} \sum_{i = 1}^n \frac{X_i}{i} + \frac{2}{m(m+1)} \sum_{j = 1}^m \frac{Y_j}{j} - 1\right)^2}{\sum_{k = 1}^n \frac{1}{k}\left(X_k - \sum_{i = 1}^n \frac{X_i}{i}\right)^2 + \sum_{p = 1}^m \frac{1}{p}\left(X_p - \sum_{j = 1}^m \frac{Y_j}{j}\right)^2} \ge \frac{\frac{2}{n(n+1)} + \frac{2}{m(m+1)}}{n + m - 2}f_{1 - \alpha}(1, n + m - 2)\right\}
   \]
   }
   \problem{
@@ -526,11 +696,50 @@ $x_i$ & 4.0 & 5.2 & 6.1 & 7.0 & 7.9 & 8.6 & 8.9 & 9.5 & 9.9 \\
   \problem{
   В последовательности независимых испытаний с двумя исходами вероятсноть ``успеха'' равна $p$. Построить критей проверки гипотезы $H_0 \text{ } p = 0$ против альтернативы $H_1 \text{ } p = 0.01$ и определить наименьший объем выборки, при котором вероятности ошибок 1-го и 2-го родов не превышают $0.01$.
   }
-  \solution{}
+  \solution{
+    По лемме Неймана-Пирсона наиболее мощный критерий $S_{\lambda} = \{p_1(X) - \lambda p_0(X) \ge 0\}$
+    Тогда вероятность ошибки первого рода равна $P_0((0.99)^n \ge \lambda) = I\{0.99^n \ge \lambda\} \ra \lambda$ должна быть такой, чтобы $0.99^n < \lambda$. Заметим, что тогда вероятность ошибки первого рода равна 0.
+    Вероятность ошибки второго рода равна $P_1(0.01^{\sum_{i = 1}^n X_i}0.99^{n - \sum_{i = 1}^n X_i} < \lambda 0^{\sum_{i = 1}^n X_i})$. Если $\sum_{i = 1}^n X_i = 0$, то $X \notin S(X)$ так как считаем, что выполнено $0.99^n < \lambda$, а если $\sum_{i = 1}^n X_i \ne 0$, то $X \in S(X) \ra$ $P_1(X \notin S(X)) = P_1(\sum_{i = 1}^n X_i = 0) = 0.99^n \le 0.01 \ra n = \log_{0.99}(0.01) = 459$. $\lambda$ можно положить 1, итого критерий $\{p_1(X) - p_0(X) \ge 0\}$.
+  }
   \problem{
   Имеется 2 гирьки с весами $\theta_1 $ и $\theta_2$. На одних и тех же весах сначала взвесили первую гирьку, затем вторую, а потом обе сразу. Найти оценку наименьших квадратов для $\theta_1$ и $\theta_2$ и несмещенную оценку дисперсии ошибки измерений. Проверьте гипотезы:
   а) $H_0 : \theta_1 = \theta_2$;
   б) $H_0 : 2\theta_1 = 3\theta_2$.
   }
-  \solution{}
+  \solution{
+  Воспользуемся критерием Фишера для линейных гипотез, модель линейной регрессии: 
+  \[
+  X = 
+  \begin{pmatrix}
+  1 & 0 \\
+  0 & 1 \\
+  1 & 1
+  \end{pmatrix} \theta + \eps, (Z^TZ)^{-1} = 
+  \begin{pmatrix}
+  \frac{2}{3} & -\frac{1}{3} \\
+  -\frac{1}{3} & \frac{2}{3}
+  \end{pmatrix} \ra
+  \hat{\theta} = 
+  \begin{pmatrix}
+  \frac{2}{3} & -\frac{1}{3} \\
+  -\frac{1}{3} & \frac{2}{3}
+  \end{pmatrix} 
+  \begin{pmatrix}
+  X_1 + X_3 \\
+  X_2 + X_3
+  \end{pmatrix} =
+  \begin{pmatrix}
+  \frac{2X_1 - X_2 + X_3}{3} \\
+  \frac{2X_2 - X_1 + X_3}{3}
+  \end{pmatrix}
+  \]
+  \[\hat{\sigma^2} = \frac{1}{3-2}\norm{X - Z\hat{\theta}}^2 = \frac{1}{9}\left((2X_1 - X_2 + X_3)^2 + (2X_2 - X_1 + X_3)^2 + (X_1 + X_2 + 2X_3)^2\right) = \] \[\frac{2}{3}(X_1^2 + X_2^2 + X_3^2 -X_1X_2 + X_1X_3 + X_2X_3)\]
+  \begin{enumerate}[label=\alph*]
+  \item $A_1 = \begin{pmatrix} 1 & -1 \end{pmatrix}, \beta_0 = 0, \hat{\beta} = \hat{\theta_1} - \hat{\theta_2} = X_1 - X_2, D = A_1(Z^TZ)^{-1}A_1^T = 2 \ra D^{-1} = \frac{1}{2}$
+  Тогда $\frac{3}{4}\frac{X_1 - X_2}{X_1^2 + X_2^2 + X_3^2 -X_1X_2 + X_1X_3 + X_2X_3} \sim F(1, 1)$
+  Тогда критерий уровня значимости $\alpha$ равен $\left\{\frac{X_1 - X_2}{X_1^2 + X_2^2 + X_3^2 -X_1X_2 + X_1X_3 + X_2X_3} \ge \frac{4}{3}f_{1 - \alpha}(1, 1)\right\}$
+  \item $A_2 = \begin{pmatrix} 2 & -3 \end{pmatrix}, \hat{\beta} = 2\hat{\theta_1} - 3\hat{\theta_2} = \frac{7X_1 - 8X_2 - X_3}{3}, \beta_0 = 0, D = A_2 (Z^TZ)^{-1}A_2^T = \frac{38}{3} \ra $
+  Критерий уровня значимости $\alpha$ равен $\left\{\frac{7X_1 - 8X_2 - X_3}{X_1^2 + X_2^2 + X_3^2 -X_1X_2 + X_1X_3 + X_2X_3} \ge \frac{3}{76}f_{1 - \alpha}(1, 1)\right\}$
+  \end{enumerate}
+  }
 \end{document}
