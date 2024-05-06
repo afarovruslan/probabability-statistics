@@ -19,8 +19,7 @@
   }
   \solution{
   По теореме, лучшей оценкой в байесовском подходе с квадратичной функцией потерь является байесовская оценка.
-  \[q(t)p_{t}(x) = \frac{\alpha^{\lambda}t^{\lambda - 1} e^{-\alpha t}}{\Gamma(\lambda)}I_{\R_{+}}(t) \frac{t^{\sum_{i = 1}^n x_i}}{x_1!\dots x_n!}e^{-nt} \ra \]
-  \[ \int_{\Theta} q(t)p_{t}(x) dt = \frac{\alpha^{\lambda}}{\Gamma(\lambda) x_1!\dots x_n!}\int_{0}^{+\infty} t^{\lambda + \sum_{i = 1}^n x_i - 1}e^{-t(\alpha + n)}dt = \frac{\alpha^{\lambda} (\alpha + n)^{\lambda + \sum_{i = 1}^n x_i}}{x_1!\dots x_n!} \frac{\Gamma(\lambda + \sum_{i = 1}^n x_i)}{\Gamma(\lambda)} \ra\]
+  \[q(t)p_{t}(x) = \frac{\alpha^{\lambda}t^{\lambda - 1} e^{-\alpha t}}{\Gamma(\lambda)}I_{\R_{+}}(t) \frac{t^{\sum_{i = 1}^n x_i}}{x_1!\dots x_n!}e^{-nt} = c t^{\sum_{i = 1}^n x_i + \lambda - 1}e^{-t(n + \alpha)}I_{\R_{+}}(t) \ra \]
   \[
   p_{\theta | X} \sim \Gamma\left(\alpha + n, \lambda + \sum_{i = 1}^n X_i\right) \ra \hat{\theta} = \frac{\lambda + \sum_{i = 1}^n X_i}{\alpha + n}
   \]
@@ -93,26 +92,53 @@
   }
   \solution{~
   \begin{enumerate}[label=\alph*]
-  \item По ЦПТ $\sqrt{n}(\overline{X} - \lambda \theta) \tod \ND{0}{\theta \lambda^2}$
-  Пусть $z_p $ - квантиль уровня $p$ распределения $\ND{0}{1}$. Так как $\lambda\sqrt{\theta}$ непрерывна по $\theta$ на $\R_{+}$, то
-  \[\lim_{n \to \infty} P\left(z_{\frac{1 - \alpha}{2}} < \sqrt{n} \frac{\overline{X} - \lambda \theta}{\lambda \sqrt{\overline{X}}} < z_{\frac{1 + \alpha}{2}}\right) = \alpha\]
-  Ответ: $\left(\frac{\overline{X} - \frac{z_{\frac{1 + \alpha}{2}}\lambda \sqrt{\overline{X}}}{\sqrt{n}}}{\lambda}, \frac{\overline{X} - \frac{z_{\frac{1 - \alpha}{2}}\lambda \sqrt{\overline{X}}}{\sqrt{n}}}{\lambda}\right)$
+  \item По ЦПТ $\sqrt{n}(\overline{X} - \frac{\lambda}{\theta}) \tod \ND{0}{\frac{\lambda}{\theta^2}}$
+  Пусть $z_p $ - квантиль уровня $p$ распределения $\ND{0}{1}$. Так как $\frac{\lambda}{\theta^2}$ непрерывна по $\theta$ на $\R_{+}$, то
+  \[\lim_{n \to \infty} P\left(\sqrt{n} \frac{\overline{X} - \frac{\lambda}{\theta}}{\frac{\sqrt{\lambda}}{\overline{X}}} < z_{\alpha}\right) = \alpha\]
+  Ответ: $\left(0, \frac{\lambda}{\overline{X} - \frac{z_{\alpha} \sqrt{\lambda}}{\sqrt{n}\overline{X}}}\right)$
+  \item Найдем состоятельную оценку $\lambda$ по методу моментов:
+  $\begin{cases}
+  \E X_1 = \frac{\lambda}{\theta} \\
+  \E X_1^2 = \frac{\lambda}{\theta^2} + \frac{\lambda^2}{\theta^2}
+  \end{cases} \ra \hat{\lambda} = \frac{\overline{X}^2}{\overline{X^2} - \overline{X}^2}
+  $
+  Тогда по теореме о наследовании сходимости $\sqrt{n} \frac{\overline{X} - \frac{\hat{\lambda}}{\theta}}{\frac{\sqrt{\hat{\lambda}}}{\overline{X}}} \tod \ND{0}{1} \ra$\\
+  Ответ: $\left(0, \frac{\overline{X}^2}{\sqrt{\overline{X^2} - \overline{X}^2}\left(\overline{X}\sqrt{\overline{X^2} - \overline{X}^2} - \frac{z_{\alpha}}{\sqrt{n}}\right)}\right)$
   \end{enumerate}
   }
   \problem{
   Имеется $X_1$ - выборка объема 1. Основная гипотеза $H_0$ состоит в том, что $X_1$ имеет равномерное распределение на отрезке $[0, 1]$, альтернатива - в том, что $X_1$ имеет показательное распределение с параметром 1. Постройте наиболее мощный критерий уровня значимости $\alpha$ для различения этих гипотез и вычислите его мощность.
   }
-  \solution{}
+  \solution{
+  Воспользуемя леммой Неймана-Пирсона и построим критерий вида $\{p_1(x) - \lambda p_0(x) \ge 0\}$.
+  $p_1(x) = e^{-x}I_{[0, +\infty)}(x), p_0(x) = I_{[0,1]}(x)$ Так как мы хотим, чтобы $P_0(X \in S) \le \alpha$, то
+  \[P_0(p_1(x) - \lambda p_0(x) \ge 0) = P_0(e^{-x} - \lambda \ge 0) = P_0(x \le -\ln \lambda) = -\ln \lambda = \alpha \ra \lambda = e^{-\alpha}\]
+  \[\beta(1, S) = P_1(X \in S) = P_1(X \in S | x > 1)P_1(x > 1) + P_1(X \in S | x \le 1)P_1(x \le 1) = \] \[ e^{-1}P_1(p_1(x) \ge 0 | x > 1) + (1 - e^{-1})P_1(x \le \alpha | x \le 1) = 1 + e^{-1} - e^{-\alpha}\]
+  }
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из равномерного распределения на отрезке $[0, \theta], \theta > 0$. Постройте р.н.м.к. уровня значимости $\alpha$ для проверки гипотезы $H_0 : \theta = \theta_0$ против альтернативы $H_1: \theta \ne \theta_0$ в виде
 \[S(X_1, \dots, X_n) = \{ X_{(n)} \le c\theta_0\} \cup \{ X_{(n)} > \theta_0 \}\]
   }
-  \solution{}
+  \solution{
+  \[P_0(X \in S) = P_0(X_{(n)} \le c\theta_0) = F_{X_{(n)}}(c\theta_0) = c^n = \alpha \ra c = \sqrt[n]{\alpha}\]
+  Докажем, что данный критерий р.н.м.к уровня $\alpha$
+  Если $\theta \le c\theta_0$, то $P_{\theta}(X \in S) = 1 \ge P_{\theta} X \in R) \forall R $
+  Если $\theta > \theta_0$, то $P_{\theta}(X \in S) = F_{X_{(n)}}(c\theta_0) + 1 - F_{X_{(n)}}(\theta_0) = 1 - (1 - \alpha)\left(\frac{\theta}{\theta_0}\right)^n$
+  \[
+  P_{\theta}(X \notin R) = \frac{1}{\theta^n} \int_{[0, \theta]^n} I_{\overline{R}}(x_1, \dots, x_n) dx_1 \dots dx_n \ge \frac{1}{\theta^n} \int_{[0, \theta_0]^n} I_{\overline{R}}(x_1, \dots, x_n) dx_1 \dots dx_n = \] \[ \left(\frac{\theta}{\theta_0}\right)^n \frac{1}{\theta_0^n} \int_{[0, \theta_0]^n} I_{\overline{R}}(x_1, \dots, x_n) dx_1 \dots dx_n = \left(\frac{\theta}{\theta_0}\right)^n P_{\theta_0}(X \notin R) \ge (1 - \alpha)\left(\frac{\theta}{\theta_0}\right)^n \ra \] \[ P_{\theta}(X \in R) \le 1 - (1 - \alpha)\left(\frac{\theta}{\theta_0}\right)^n = P_{\theta}(X \in S) 
+  \]
+  Для случая $c\theta_0 < \theta < \theta_0$ аналогичные рассуждения.
+  }
   \problem{
   Пусть $\{P_{\theta}, \theta \in \Theta\}$ - семейство с невозрастающим отношением правдоподобия по статистике $T(X)$, а $\alpha < 1$ - некоторое положительное число. Постройте р.н.м.к. уровня значимости $\alpha$ для проверки гипотезы $H_0$ против альтернативы $H_1$ , где а) $H_0 : \theta \le \theta_0$ (или $\theta = \theta_0), H_1 : \theta > \theta_0 $;
 б) $H_0 : \theta \ge \theta_0$ (или $\theta = \theta_0$ ), $H_1 : \theta < \theta_0$ .
   }
-  \solution{}
+  \solution{~
+  \begin{enumerate}[label=\alph*]
+  \item Если семейство невозрастает по статистике $T(X)$, то неубывает по статистике $-T(X)$. Тогда из теоремы $10.1$ получаем критерий $\{T(X) \le -c \}$
+  \item Делая замену $\tilde{\theta} = -\theta$, семейство $\{ P_{\theta}\}$ будет неубывать по статистике $T(X) \ra$ по теорему критерий $\{T(X) \ge c \}$
+\end{enumerate}
+  }
   \problem{*
   Показать, что любой равномерно наиболее мощный несмещённый (т.е. $\inf_{\theta \in \Theta_0} \beta(\theta, S) \ge \sup_{\theta \in \Theta_1} \beta(\theta, S)$) критерий $S$ является допустимым, т.е. не существует другого критерия $R$, который был бы не менее мощен, чем $S$, при всех альтернативах и более мощен хотя бы при одной из альтернатив.}
   \solution{}
@@ -120,7 +146,9 @@
   Докажите, что в предположении гипотезы $H_0 : F = F_0$ для любого $x \in R$ выполнено
 \[ F_n^*(x) \xrightarrow[n \to \infty]{\text{п. н.}} F_0(x)\]
   }
-  \solution{}
+  \solution{
+  Пусть $B \in \mathcal{B}(\R)$. Тогда $P^*(B) = \sum_{i = 1}^n \frac{I_B(x)}{n}$. Функция $I_B$ измеримая, тогда по УЗБЧ $\sum_{i = 1}^n \frac{I_B(x)}{n} \toac \E I_B = P(x \in B) \ra$ положив $B = (-\infty, x)$ получаем то, что надо доказать
+  }
   \begin{theorem}[А. Колмогорова, 12.2 из С2]
   В предположении верности гипотезы $H_0 : F = F_0$ имеет место равенство 
   \[\lim_{n \to \infty} P(\sqrt{n}D_n \le t) = K(t)\]
@@ -177,7 +205,7 @@ P(\xi = 0) = \theta, P(\xi = 1) = \theta, \]
   $
   \item Заметим, что $n X_{(1)}\theta \sim Exp(1)$ Пусть $z_p$ - p квантиль распределения $Exp(1)$. Тогда 
   $P(z_{p_1} < n X_{(1)}\theta < z_{p_2}) = P(\frac{z_{p_1}}{nX_{(1)}} < \theta < \frac{z_{p_2}}{nX_{(1)}}) \ra l \sim z_{p_2} - z_{p_1} = \ln \frac{1 - p_1}{1 - p_2} = \ln(1 + \frac{\gamma}{1 - p_2}) \to \min_{p_2 \in [\gamma, 1]} \ra p_2 = \gamma, p_1 = 0 \ra $
-  Ответ: $\left(0, \frac{\ln \gamma}{n X_{(1)}}\right)$
+  Ответ: $\left(0, \frac{-\ln \alpha}{n X_{(1)}}\right)$
   \end{enumerate}
   }
   \problem{
