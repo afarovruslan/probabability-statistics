@@ -46,7 +46,7 @@
     \]
     Так как $X_{(n)} \toac \theta$, то $\hat{\theta} \toac 1 \ra$ оценка несостоятельна.
 
-    \item Пусть $T(X) = \max(1, X_{(n)})$, тогда \[q(t) p_t(x) = I_{[1, +\infty)}(t)\frac{1}{t^{n + 2}}I_{0 \le X_{(1)} \le X_{(n)} \le t} = \frac{I_{[T(X), +\infty)}}{t^{n + 2}}\ra \int_{\Theta}q(t) p_t(x)dt = \int_{T(X)}^{+\infty} \frac{dt}{t^{n + 2}} = \] \[ \frac{1}{(n + 1)T(X)^{n + 1}} \ra \hat{\theta} = \frac{n + 1}{n}T(X) \toac \theta \ra \text{ оценка сильно состоятельна}\]
+    \item Пусть $T(X) = \max(1, X_{(n)})$, тогда \[q(t) p_t(x) = I_{[1, +\infty)}(t)\frac{1}{t^{n + 2}}I_{0 \le X_{(1)} \le X_{(n)} \le t} = \frac{I_{[T(X), +\infty)}(t)}{t^{n + 2}}\ra \int_{\Theta}q(t) p_t(x)dt = \int_{T(X)}^{+\infty} \frac{dt}{t^{n + 2}} = \] \[ \frac{1}{(n + 1)T(X)^{n + 1}} \ra \hat{\theta} = \frac{n + 1}{n}T(X) \toac \theta \ra \text{ оценка сильно состоятельна}\]
 
   \end{enumerate}
   }
@@ -177,7 +177,14 @@
 числа $\pi$ появились \\$74, 92, 83, 79, 80, 73, 77, 75, 76, 91$ раз соответственно. С помощью хи-квадрат критерия проверьте гипотезу о согласии этих данных с законом равномерного распределения на множестве $\{0, 1, \dots , 9\}$ на уровне
 значимости а) 0.05, б) 0.5, в) 0.8.
 }
-  \solution{}
+  \solution{
+  \[\hat{\chi^2} = \frac{1}{80}(6^2 + 12^2 + 3^2 + 1^1 + 0^2 + 7^2 + 3^2 + 5^2 + 4^2 + 11^2) = 5.125\]
+  \begin{enumerate}[label=\alph*]
+  \item $\chi^2_{0.95, 9} = 16.9190 \le \hat{\chi^2} \ra $ мы не отвергаем $H_0$
+  \item $\chi^2_{0.5, 9} = 8.3428 \le \hat{\chi^2} \ra$ мы не отвергаем $H_0$
+  \item $\chi^2_{0.2, 9} = 5.3801 \le \hat{\chi^2} \ra$ мы не отвергаем $H_0$. 
+\end{enumerate}
+  }
   \problem{
   Среди $5000$ семей, имеющих трех детей, есть ровно $1010$ семей с тремя мальчиками, 2200 семей с двумя мальчиками и одной девочкой, 950 семей с одним мальчиком и двумя девочками (во всех остальных семьях все дети - девочки). Можно ли с уровнем значимости $\alpha = 0.02$ считать, что количество мальчиков $\xi$ в семье с тремя детьми имеет следующее распределение
 \[
@@ -185,7 +192,16 @@ P(\xi = 0) = \theta, P(\xi = 1) = \theta, \]
 \[P(\xi = 2) = 2\theta, P(\xi = 3) = 1 - 4\theta, \]
 где $\theta \in (0, 1/4)$?
   }
-  \solution{}
+  \solution{
+  Найдем ОМП
+  \[ L(\theta) = \theta^{800}\theta^{950}(2\theta)^{2200}(1 - 4\theta)^{1010} = c\theta^{3950}(1 - 4\theta)^{1010} \ra l(\theta) = 3950\ln \theta + 1010\ln(1 - 4\theta) + \hat{c}\] \[ \frac{d}{d\theta} l(\theta) = \frac{3950}{\theta} - \frac{4 * 1010}{1 - 4\theta} = 0 \ra \hat{\theta} = \frac{3950}{4 * 5000} = \frac{1975}{2n} \ra \]
+  \[
+  np_1(\hat{\theta}) = \frac{1975}{2}, np_2(\hat{\theta}) = \frac{1975}{2}, np_3(\hat{\theta}) = 1975, np_4(\hat{\theta}) = 1010 \ra\]
+  \[
+  \hat{\chi^2} = \frac{2}{1975} \left(\frac{375}{2}\right)^2 + \frac{2}{1975}\left(\frac{75}{2}\right)^2 + \frac{225^2}{1975} + 0 = \frac{4950}{79} \approx 62.66 > \chi^2_{0.99, 3} = 11.34 \ra
+  \]
+  ответ - нельзя.
+  }
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из распределения:
 а)$Bern(\theta)$, б)$Pois(\theta)$, в)$\ND{\theta}{1}$, г)$\exp(\theta)$.
@@ -223,11 +239,27 @@ P(\xi = 0) = \theta, P(\xi = 1) = \theta, \]
   Пусть $X_1, \dots, X_n$ - выборка из экспоненциального распределения с параметром $\theta$. Построить равномерно наиболее мощный критерий для проверки гипотезы $H_0 : \theta = \theta_0$ против альтернативы:
   а) $H_1 : \theta > \theta_0$; б) $H_1: \theta < \theta_0$
   }
-  \solution{}
+  \solution{
+  Пусть $\theta_1 < \theta_2$. 
+  \[\frac{p_{\theta_2}(X)}{p_{\theta_1}(X)} = \left(\frac{\theta_2}{\theta_1}\right)^n \exp{(\theta_1 - \theta_2)\sum_{i = 1}^n X_i} \ra\]
+  То есть семейство с неубывающим отношением правдоподобия по статистике $T(X) = -\sum_{i = 1}^n X_i$.
+  Тогда можем воспользоваться теоремой 10.1
+\begin{enumerate}[label=\alph*]
+   \item Найдем $c : P_{\theta_0}(T(X) \ge c) = \alpha, \sum_{i = 1}^n X_i \sim \Gamma\left(n, \theta\right) \ra$
+  \[P_{\theta_0}\left(\sum_{i = 1}^n X_i \le -c\right) = \alpha \ra c = -\Gamma_{\alpha}\left(n, \theta_0\right) \ra S = \left\{\sum_{i = 1}^n X_i \le \Gamma_{\alpha}\left(n, \theta_0\right)\right\}\]
+  \item Аналогично полуаем $S = \left\{\sum_{i = 1}^n X_i \ge \Gamma_{1 - \alpha}\left(n, \theta_0\right)\right\}$
+\end{enumerate}
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из $Bern(\theta)$. Проверить гипотезу $H_0: \theta \le \theta_0$ против альтернативы $H_1 : \theta > \theta_0$
   }
-  \solution{~}
+  \solution{
+  Пусть $\theta_2 > \theta_1$.
+  \[
+  \frac{p_{\theta_2}(X)}{p_{\theta_1}(X)} = \frac{\theta_2^{\sum_{i = 1}^n X_i}(1 - \theta_2)^{n - \sum_{i = 1}^n X_i}}{\theta_1^{\sum_{i = 1}^n X_i}(1 - \theta_1)^{n - \sum_{i = 1}^n X_i}} = c(\theta_1, \theta_2) \left(\frac{\theta_2}{\theta_1}\frac{1 - \theta_1}{1 - \theta_2} \right)^{\sum_{i = 1}^n X_i} \ra
+  \]
+  Семейство с возрастающим отношением правдоподобия по статистике $\sum_{i = 1}^n X_i$ и критерий 
+  $S = \{\sum_{i = 1}^n X_i \ge Bin_{1 - \alpha}(n, \theta_0)\}$
+  }
   \section{Линейная регрессия. Проверка линейных гипотез.}
   \problem{
   Пусть
