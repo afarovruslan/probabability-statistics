@@ -32,9 +32,9 @@
    \int_{\theta} q(t)p_{t}(x) dt = p \frac{1}{\sqrt{2\pi}}e^{-\frac{\sum_{i = 1}^n (X_i - 1)^2}{2}} + (1 - p) \frac{1}{\sqrt{2\pi}}e^{-\frac{\sum_{i = 1}^n X_i^2}{2}} = \frac{e^{-\frac{\sum_{i = 1}^n X_i^2}{2}}}{\sqrt{2\pi}}\left(pe^{\sum_{i = 1}^n X_i - \frac{1}{2}} + 1 - p \right) \ra
    \]
    \[
-   p_{\theta | X}(t | x) = \frac{p^t(1 - p)^{1 - t}e^{\sum_{i = 1}^n X_i t - \frac{t}{2}}}{pe^{\sum_{i = 1}^n X_i - \frac{1}{2}} + 1 - p} \ra \hat{\theta} = \frac{p e^{\sum_{i = 1}^n X_i - \frac{1}{2}}}{pe^{\sum_{i = 1}^n X_i - \frac{1}{2}} + 1 - p} = 1 - \frac{1 - p}{p(e^{\overline{X} - \frac{1}{2n}})^n + 1 - p}
+   p_{\theta | X}(t | x) = \frac{p^t(1 - p)^{1 - t}e^{\sum_{i = 1}^n X_i t - \frac{t}{2}}}{pe^{\sum_{i = 1}^n X_i - \frac{1}{2}} + 1 - p} \ra \hat{\theta} = \frac{p e^{\sum_{i = 1}^n X_i - \frac{1}{2}}}{pe^{\sum_{i = 1}^n X_i - \frac{1}{2}} + 1 - p} = 1 - \frac{1 - p}{p(e^{\overline{X} - \frac{1}{2}})^n + 1 - p}
    \]
-   По УЗБЧ $\overline{X} \toac \theta \ra $ по теореме о наследовании сходимости $\hat{\theta} \toac 1 \ne \theta \ra$ оценка несостоятельна.
+   По УЗБЧ $\overline{X} \toac \theta \ra $ по теореме о наследовании сходимости $\hat{\theta} \toac \theta \ra$ оценка состоятельна.
   }
   \problem{
   Пусть $X_1, \dots, X_n$ - выборка из равномерного распределения на отрезке $[0, \theta]$. Найдите байесовскую оценку параметра $\theta$, если $\theta$ имеет априорное распределение а) равномерно на отрезке $[0, 1]$, б) с плотностью $q(t) = 1/t^2$ при $t \ge 1$. Проверьте полученные оценки на состоятельность.
@@ -44,7 +44,7 @@
     \item При $n > 2$ имеем \[q(t) p_t(x) = I_{[0,1]}(t)\frac{1}{t^n}I_{0 \le x_{(1)} \le x_{(n)} \le t} \ra \int_{\Theta}q(t) p_t(x)dt = \int_{x_{(n)}}^{1} \frac{dt}{t^n} = \frac{1}{n - 1}\left(\frac{1}{x_{(n)}^{n - 1}} - 1\right) \ra \] \[
     \hat{\theta} = (n - 1)\frac{X_{(n)}^{n - 1}}{1 - X_{(n)}^{n - 1}} \int_{X_{(n)}}^1 \frac{dt}{t^{n - 1}} = X_{(n)} \frac{n - 1}{n - 2}\frac{1 - X_{(n)}^{n - 2}}{1 - X_{(n)}^{n - 1}} = \frac{n - 1}{n - 2}\left(1 - \frac{1 - X_{(n)}}{1 - X_{(n)}^{n - 1}} \right)
     \]
-    Так как $X_{(n)} \toac \theta$, то $\hat{\theta} \toac 1 \ra$ оценка несостоятельна.
+    Так как $X_{(n)} \toac \theta < 1$ п.н., то $X_{(n)}^n \toac 0 \ra \hat{\theta} \toac \theta \ra$ оценка состоятельна.
 
     \item Пусть $T(X) = \max(1, X_{(n)})$, тогда \[q(t) p_t(x) = I_{[1, +\infty)}(t)\frac{1}{t^{n + 2}}I_{0 \le X_{(1)} \le X_{(n)} \le t} = \frac{I_{[T(X), +\infty)}(t)}{t^{n + 2}}\ra \int_{\Theta}q(t) p_t(x)dt = \int_{T(X)}^{+\infty} \frac{dt}{t^{n + 2}} = \] \[ \frac{1}{(n + 1)T(X)^{n + 1}} \ra \hat{\theta} = \frac{n + 1}{n}T(X) \toac \theta \ra \text{ оценка сильно состоятельна}\]
 
@@ -126,9 +126,9 @@
   \[P_0(X \in S) = P_0(X_{(n)} \le c\theta_0) = F_{X_{(n)}}(c\theta_0) = c^n = \alpha \ra c = \sqrt[n]{\alpha}\]
   Докажем, что данный критерий р.н.м.к уровня $\alpha$
   Если $\theta \le c\theta_0$, то $P_{\theta}(X \in S) = 1 \ge P_{\theta} X \in R) \forall R $
-  Если $\theta > \theta_0$, то $P_{\theta}(X \in S) = F_{X_{(n)}}(c\theta_0) + 1 - F_{X_{(n)}}(\theta_0) = 1 - (1 - \alpha)\left(\frac{\theta}{\theta_0}\right)^n$
+  Если $\theta > \theta_0$, то $P_{\theta}(X \in S) = F_{X_{(n)}}(c\theta_0) + 1 - F_{X_{(n)}}(\theta_0) = 1 - (1 - \alpha)\left(\frac{\theta_0}{\theta}\right)^n$
   \[
-  P_{\theta}(X \notin R) = \frac{1}{\theta^n} \int_{[0, \theta]^n} I_{\overline{R}}(x_1, \dots, x_n) dx_1 \dots dx_n \ge \frac{1}{\theta^n} \int_{[0, \theta_0]^n} I_{\overline{R}}(x_1, \dots, x_n) dx_1 \dots dx_n = \] \[ \left(\frac{\theta}{\theta_0}\right)^n \frac{1}{\theta_0^n} \int_{[0, \theta_0]^n} I_{\overline{R}}(x_1, \dots, x_n) dx_1 \dots dx_n = \left(\frac{\theta}{\theta_0}\right)^n P_{\theta_0}(X \notin R) \ge (1 - \alpha)\left(\frac{\theta}{\theta_0}\right)^n \ra \] \[ P_{\theta}(X \in R) \le 1 - (1 - \alpha)\left(\frac{\theta}{\theta_0}\right)^n = P_{\theta}(X \in S) 
+  P_{\theta}(X \notin R) = \frac{1}{\theta^n} \int_{[0, \theta]^n} I_{\overline{R}}(x_1, \dots, x_n) dx_1 \dots dx_n \ge \frac{1}{\theta^n} \int_{[0, \theta_0]^n} I_{\overline{R}}(x_1, \dots, x_n) dx_1 \dots dx_n = \] \[ \left(\frac{\theta_0}{\theta}\right)^n \frac{1}{\theta_0^n} \int_{[0, \theta_0]^n} I_{\overline{R}}(x_1, \dots, x_n) dx_1 \dots dx_n = \left(\frac{\theta_0}{\theta}\right)^n P_{\theta_0}(X \notin R) \ge (1 - \alpha)\left(\frac{\theta_0}{\theta}\right)^n \ra \] \[ P_{\theta}(X \in R) \le 1 - (1 - \alpha)\left(\frac{\theta_0}{\theta}\right)^n = P_{\theta}(X \in S) 
   \]
   Для случая $c\theta_0 < \theta < \theta_0$ аналогичные рассуждения.
   }
@@ -168,9 +168,9 @@
   }
   \solution{
   \[
-  \int_{0}^1 (F_n^*(y) - y)^2dy = \int_{0}^{X_{(1)}} (0 - y)^2 dy + \int_{X_{(1)}}^{X_{(2)}} \left(\frac{1}{n} - y\right)^2 dy + \dots + \int_{X_{(n)}}^1 (1 - y)^2 dy = \] \[\frac{1}{3}\left(X_{(1)}^3 + \sum_{i = 1}^{n - 1}\left(X_{(i + 1)} - \frac{i}{n}\right)^3 - \left(X_{(i)} - \frac{i}{n}\right)^3 + (1 - 1)^3 - (X_{(n)} - 1)^3\right) = \] \[ \frac{1}{3}\left(\sum_{i = 1}^n \left(X_{(i)} - \frac{i - 1}{n}\right)^3 - \sum_{i = 1}^n \left(X_{(i)} - \frac{i}{n}\right)^3\right) = \] \[\frac{1}{3}\left(\sum_{i = 1}^n \frac{1}{n}\left(X_{(i)}^2 - 2X_{(i)}\frac{i - 1}{n} + \frac{i^2 - 2i + 1}{n^2} + X_{(i)}^2 - 2X_{(i)}\frac{i}{n} + \frac{i^2}{n^2}\right)\right) = 
+  \int_{0}^1 (F_n^*(y) - y)^2dy = \int_{0}^{X_{(1)}} (0 - y)^2 dy + \int_{X_{(1)}}^{X_{(2)}} \left(\frac{1}{n} - y\right)^2 dy + \dots + \int_{X_{(n)}}^1 (1 - y)^2 dy = \] \[\frac{1}{3}\left(X_{(1)}^3 + \sum_{i = 1}^{n - 1}\left(X_{(i + 1)} - \frac{i}{n}\right)^3 - \left(X_{(i)} - \frac{i}{n}\right)^3 + (1 - 1)^3 - (X_{(n)} - 1)^3\right) = \] \[ \frac{1}{3}\left(\sum_{i = 1}^n \left(X_{(i)} - \frac{i - 1}{n}\right)^3 - \sum_{i = 1}^n \left(X_{(i)} - \frac{i}{n}\right)^3\right) = \] \[\frac{1}{3}\left(\sum_{i = 1}^n \frac{1}{n}\left(X_{(i)}^2 - 2X_{(i)}\frac{i - 1}{n} + \frac{i^2 - 2i + 1}{n^2} + X_{(i)}^2 - 2X_{(i)}\frac{i}{n} + \frac{i^2}{n^2} +X_{(i)}^2 - X_{(i)} \frac{2i - 1}{n} + \frac{i^2 - i}{n^2} \right)\right) = 
   \]
-  \[\frac{2}{3n}\sum_{i = 1}^n \left(X_{(i)}^2 - 2 X_{(i)} \frac{2i - 1}{2n} + \frac{4i^2 -4i + 1}{4n^2} + \frac{2i^2 -4i + 2 + 2i^2 - 4i^2 + 4i - 1}{4n^2}\right) = \] \[ \frac{2}{3n}\sum_{i = 1}^n \left(X_{(i)} - \frac{2i - 1}{2n}\right)^2 + \frac{2}{3n}\sum_{i = 1}^n \frac{1}{4n^2} = \frac{1}{6n^2} + \frac{2}{3n}\sum_{k = 1}^n \left(X_{(k)} - (2k-1)/2n\right)^2 \]
+  \[\frac{1}{n}\sum_{i = 1}^n \left(X_{(i)}^2 - 2 X_{(i)} \frac{2i - 1}{2n} + \frac{4i^2 -4i + 1}{4n^2} + \frac{4i^2 -8i + 4 + 4i^2 + 4i^2 - 4i - 12i^2 + 12i - 3}{12n^2}\right) = \] \[ \frac{1}{n}\sum_{i = 1}^n \left(X_{(i)} - \frac{2i - 1}{2n}\right)^2 + \frac{1}{n}\sum_{i = 1}^n \frac{1}{12n^2} = \frac{1}{12n^2} + \frac{1}{n}\sum_{k = 1}^n \left(X_{(k)} - (2k-1)/2n\right)^2 \]
   }
   \problem{
   Цифры $0, 1, 2, \dots , 9$ среди $800$ первых десятичных знаков
@@ -180,9 +180,9 @@
   \solution{
   \[\hat{\chi^2} = \frac{1}{80}(6^2 + 12^2 + 3^2 + 1^1 + 0^2 + 7^2 + 3^2 + 5^2 + 4^2 + 11^2) = 5.125\]
   \begin{enumerate}[label=\alph*]
-  \item $\chi^2_{0.95, 9} = 16.9190 \le \hat{\chi^2} \ra $ мы не отвергаем $H_0$
-  \item $\chi^2_{0.5, 9} = 8.3428 \le \hat{\chi^2} \ra$ мы не отвергаем $H_0$
-  \item $\chi^2_{0.2, 9} = 5.3801 \le \hat{\chi^2} \ra$ мы не отвергаем $H_0$. 
+  \item $\chi^2_{0.95, 9} = 16.9190 \ge \hat{\chi^2} \ra $ мы не отвергаем $H_0$
+  \item $\chi^2_{0.5, 9} = 8.3428 \ge \hat{\chi^2} \ra$ мы не отвергаем $H_0$
+  \item $\chi^2_{0.2, 9} = 5.3801 \ge \hat{\chi^2} \ra$ мы не отвергаем $H_0$. 
 \end{enumerate}
   }
   \problem{
@@ -194,11 +194,11 @@ P(\xi = 0) = \theta, P(\xi = 1) = \theta, \]
   }
   \solution{
   Найдем ОМП
-  \[ L(\theta) = \theta^{800}\theta^{950}(2\theta)^{2200}(1 - 4\theta)^{1010} = c\theta^{3950}(1 - 4\theta)^{1010} \ra l(\theta) = 3950\ln \theta + 1010\ln(1 - 4\theta) + \hat{c}\] \[ \frac{d}{d\theta} l(\theta) = \frac{3950}{\theta} - \frac{4 * 1010}{1 - 4\theta} = 0 \ra \hat{\theta} = \frac{3950}{4 * 5000} = \frac{1975}{2n} \ra \]
+  \[ L(\theta) = \theta^{840}\theta^{950}(2\theta)^{2200}(1 - 4\theta)^{1010} = c\theta^{3990}(1 - 4\theta)^{1010} \ra l(\theta) = 3990\ln \theta + 1010\ln(1 - 4\theta) + \hat{c}\] \[ \frac{d}{d\theta} l(\theta) = \frac{3990}{\theta} - \frac{4 * 1010}{1 - 4\theta} = 0 \ra \hat{\theta} = \frac{3990}{4 * 5000} = \frac{1995}{2n} \ra \]
   \[
-  np_1(\hat{\theta}) = \frac{1975}{2}, np_2(\hat{\theta}) = \frac{1975}{2}, np_3(\hat{\theta}) = 1975, np_4(\hat{\theta}) = 1010 \ra\]
+  np_1(\hat{\theta}) = \frac{1995}{2}, np_2(\hat{\theta}) = \frac{1995}{2}, np_3(\hat{\theta}) = 1995, np_4(\hat{\theta}) = 1010 \ra\]
   \[
-  \hat{\chi^2} = \frac{2}{1975} \left(\frac{375}{2}\right)^2 + \frac{2}{1975}\left(\frac{75}{2}\right)^2 + \frac{225^2}{1975} + 0 = \frac{4950}{79} \approx 62.66 > \chi^2_{0.99, 3} = 11.34 \ra
+  \hat{\chi^2} = \frac{2}{1995} \left(\frac{315}{2}\right)^2 + \frac{2}{1995}\left(\frac{95}{2}\right)^2 + \frac{205^2}{1995} + 0 = \frac{6410}{133} \approx 48.2 > \chi^2_{0.98, 3} = 9.83741 \ra
   \]
   ответ - нельзя.
   }
@@ -221,8 +221,8 @@ P(\xi = 0) = \theta, P(\xi = 1) = \theta, \]
   \[
   \text{Ответ: }\left(\frac{2\overline{X} + \frac{1}{\alpha n} - \sqrt{\left(2\overline{X} + \frac{1}{\alpha n}\right)^2 - 4\left(1 + \frac{1}{\alpha n}\right)\overline{X}^2}}{2\left(1 + \frac{1}{\alpha n}\right)}, \frac{2\overline{X} + \frac{1}{\alpha n} + \sqrt{\left(2\overline{X} + \frac{1}{\alpha n}\right)^2 - 4\left(1 + \frac{1}{\alpha n}\right)\overline{X}^2}}{2\left(1 + \frac{1}{\alpha n}\right)} \right)
   \]
-  \item По аналогии с предыдущей задачей, $\E X = \theta, \D X = \theta$, получаем неравенство $\theta^2 - \theta\left(2\overline{X} + \frac{1}{\alpha}\right) + \overline{X}^2 < 0 \ra$
-  \[\text{Ответ: } \left(\frac{2\overline{X} + \frac{1}{\alpha} + \sqrt{\frac{4\overline{X}}{\alpha} + \frac{1}{\alpha^2}}}{2}, \frac{2\overline{X} + \frac{1}{\alpha} - \sqrt{\frac{4\overline{X}}{\alpha} + \frac{1}{\alpha^2}}}{2}\right)\]
+  \item По аналогии с предыдущей задачей, $\E X = \theta, \D X = \theta$, получаем неравенство $\theta^2 - \theta\left(2\overline{X} + \frac{1}{\alpha n}\right) + \overline{X}^2 < 0 \ra$
+  \[\text{Ответ: } \left(\frac{2\overline{X} + \frac{1}{\alpha n} + \sqrt{\frac{4\overline{X}}{\alpha n} + \frac{1}{\alpha^2n^2}}}{2}, \frac{2\overline{X} + \frac{1}{\alpha n} - \sqrt{\frac{4\overline{X}}{\alpha n} + \frac{1}{n^2\alpha^2}}}{2}\right)\]
   \item $\sqrt{n}(\overline{X} - \theta) \sim \ND{0}{1}$. Пусть $z_p $ - квантиль уровня $p$ распределения $\ND{0}{1}$. Тогда $P(z_{\alpha/2} < \sqrt{n}(\overline{X} - \theta) < -z_{\alpha / 2}) \ra$
   Ответ: $\left(\overline{X} + \frac{z_{\alpha/2}}{\sqrt{n}}, \overline{X} - \frac{z_{\alpha/2}}{\sqrt{n}} \right)
   $
@@ -364,8 +364,8 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
   \solution{
   Из з. 23 известно, что 
   $\frac{nS^2}{\sigma^2} \sim \chi^2(n - 1) \ra $ доверительный интервал для $\sigma^2 \left(0, \frac{nS^2}{\chi^2_{1 - \gamma}(n - 1)}\right)$
-  Рассмотрим $\frac{\overline{X} - a}{\sqrt{nS^2}} = \frac{\overline{X} - a}{\sigma} \frac{1}{\sqrt{\frac{nS^2}{\sigma^2}}} \sim t(n - 1) \ra $ \\
-  Ответ: $\left(\overline{X} - t_{\frac{1 + \gamma}{2}}(n - 1)\sqrt{\sum_{i = 1}^n (X_i - \overline{X})^2}, \overline{X} - t_{\frac{1 - \gamma}{2}}(n - 1)\sqrt{\sum_{i = 1}^n (X_i - \overline{X})^2}\right)$
+  Рассмотрим $\frac{\overline{X} - a}{\sqrt{S^2}} = \sqrt{n}\frac{\overline{X} - a}{\sigma} \frac{1}{\sqrt{\frac{nS^2}{\sigma^2}}} \sim t(n - 1) \ra $ \\
+  Ответ: $\left(\overline{X} - t_{\frac{1 + \gamma}{2}}(n - 1)\sqrt{\frac{1}{n}\sum_{i = 1}^n (X_i - \overline{X})^2}, \overline{X} - t_{\frac{1 - \gamma}{2}}(n - 1)\sqrt{\frac{1}{n}\sum_{i = 1}^n (X_i - \overline{X})^2}\right)$
   }
   \problem{
   Взвешивание трех грузов массами $a$ и $b$ производится следующим образом: $n_1$ раз взвешивается первый груз (все ошибки измерения имеют распределение $\ND{0}{\sigma^2}), n_2$ раза взвешивается второй груз на тех же самых весах, затем $n_3$ раза на других весах взвешиваются первый и второй груз вместе, все ошибки измерения на которых имеют распределение $\ND{0}{3\sigma^2}$. Сведите задачу к линейной модели и найдите оценки наименьших квадратов для a и b, а также оптимальную оценку для $\sigma^2$.
@@ -420,9 +420,9 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
    \begin{pmatrix}
    n_2(S_1 + \frac{S_3}{3}) + \frac{n_3}{3}(S_1 - S_2) \\
    n_1(S_2 + \frac{S_3}{3}) + \frac{n_3}{3}(S_2 - S_1)
-   \end{pmatrix}
+   \end{pmatrix}, \hat{\sigma^2} = \frac{1}{n_1 + n_2 + n_3 - 2}\norm{\tilde{X} - Z\hat{\theta}}^2
    \]
-
+   Раскрывать я это не буду..
   }
   \problem{
   Пусть $X_i , i \in \{1, \dots, n \}$ - независимые случайные величины, распределенные по нормальному закону с параметрами $(a+bi, \sigma^2 )$. Постройте точные доверительные интервалы для параметров $ a, b, \sigma^2$.
@@ -445,7 +445,7 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
    \end{pmatrix} \ra 
    (Z^TZ)^{-1} = 
    \frac{2}{n(n - 1)}\begin{pmatrix}
-   2n + 1 & \-3 \\
+   2n + 1 & -3 \\
    -3 & \frac{6}{n + 1}
    \end{pmatrix}
    \] \[
@@ -599,7 +599,7 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
     \end{pmatrix}
     \ge
     \] \[
-    \frac{2(3k + n + m)}{m + n + k - 3}f_{1 - \alpha}(2, n + m + k - 3)
+    \left(\sum_{i = 1}^n (X_i - \overline{X})^2 + \sum_{i = 1}^m (Y_i - \overline{Y})^2 + \sum_{i = 1}^k (Z_i - \overline{Z})^2\right)\frac{2(3k + n + m)}{m + n + k - 3}f_{1 - \alpha}(2, n + m + k - 3)
     \}
     \]
     \item $A = 
@@ -641,7 +641,7 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
     \end{pmatrix}
     \ge
     \] \[
-    \frac{2(25k + m + 4n)}{m + n + k - 3}f_{1 - \alpha}(2, n + m + k - 3)
+    \left(\sum_{i = 1}^n (X_i - \overline{X})^2 + \sum_{i = 1}^m (Y_i - \overline{Y})^2 + \sum_{i = 1}^k (Z_i - \overline{Z})^2\right)\frac{2(25k + m + 4n)}{m + n + k - 3}f_{1 - \alpha}(2, n + m + k - 3)
     \}
     \]
   \end{enumerate}
@@ -656,38 +656,39 @@ $i = 0, 1, \dots, n$, где $\beta_1 , \beta_2$ - неизвестные пар
   \frac{X_1}{\sqrt{1}} \\
   \vdots \\
   \frac{X_n}{\sqrt{n}} \\
-  \frac{Y_1}{\sqrt{1}} \\
+  Y_1 \\
   \vdots\\
-  \frac{Y_m}{\sqrt{m}}
+  Y_m
   \end{pmatrix} = 
   \begin{pmatrix}
   \frac{1}{\sqrt{1}} & 0 \\
   \vdots & \vdots \\
   \frac{1}{\sqrt{n}} & 0 \\
-  0 & \frac{1}{\sqrt{1}} \\
+  0 & 1 \\
   \vdots & \vdots \\
-  0 & \frac{1}{\sqrt{m}}
+  0 & m
   \end{pmatrix}
   \begin{pmatrix}
   a \\ b
   \end{pmatrix} + \eps,
   (Z^TZ)^{-1} = 
-  diag\left(\frac{2}{n(n+1)}, \frac{2}{m(m+1)}\right), \hat{\theta} = 
+  diag\left(\frac{2}{n(n+1)}, \frac{6}{m(m+1)(2m + 1)}\right), \]
+
+  \[
+  \hat{\theta} = 
   \begin{pmatrix}
   \frac{2}{n(n+1)} \sum_{i = 1}^n \frac{X_i}{i} \\
-  \frac{2}{m(m+1)} \sum_{j = 1}^m \frac{Y_j}{j}
+  \frac{6}{m(m+1)(2m + 1)} \sum_{j = 1}^m jY_j
   \end{pmatrix}
   \]
     \[
-  \hat{\sigma^2} = \frac{1}{n + m - 2}\left(\sum_{k = 1}^n \frac{1}{k}\left(X_k - \sum_{i = 1}^n \frac{X_i}{i}\right)^2 + \sum_{p = 1}^m \frac{1}{p}\left(X_p - \sum_{j = 1}^m \frac{Y_j}{j}\right)^2 \right)
+  \hat{\sigma^2} = \frac{1}{n + m - 2}\left(\sum_{k = 1}^n \frac{1}{k}\left(X_k - \frac{2}{n(n + 1)}\sum_{i = 1}^n \frac{X_i}{i}\right)^2 + \sum_{p = 1}^m \left(Y_p - \frac{6p}{m(m + 1)(2m + 1)}\sum_{j = 1}^m jY_j\right)^2 \right)
   \]
   \[
   A = \begin{pmatrix} 1 & -1 \end{pmatrix}
-  \ra D = \frac{2}{n(n+1)} + \frac{2}{m(m+1)} \ra \]
-  \[  \frac{n + m - 2}{\frac{2}{n(n+1)} + \frac{2}{m(m+1)}} \frac{\left(\frac{2}{n(n+1)} \sum_{i = 1}^n \frac{X_i}{i} + \frac{2}{m(m+1)} \sum_{j = 1}^m \frac{Y_j}{j} - 1\right)^2}{\sum_{k = 1}^n \frac{1}{k}\left(X_k - \sum_{i = 1}^n \frac{X_i}{i}\right)^2 + \sum_{p = 1}^m \frac{1}{p}\left(X_p - \sum_{j = 1}^m \frac{Y_j}{j}\right)^2} \sim F(1, n + m -2) \ra
-  \]
-  \[
-  S_F = \left\{\frac{\left(\frac{2}{n(n+1)} \sum_{i = 1}^n \frac{X_i}{i} + \frac{2}{m(m+1)} \sum_{j = 1}^m \frac{Y_j}{j} - 1\right)^2}{\sum_{k = 1}^n \frac{1}{k}\left(X_k - \sum_{i = 1}^n \frac{X_i}{i}\right)^2 + \sum_{p = 1}^m \frac{1}{p}\left(X_p - \sum_{j = 1}^m \frac{Y_j}{j}\right)^2} \ge \frac{\frac{2}{n(n+1)} + \frac{2}{m(m+1)}}{n + m - 2}f_{1 - \alpha}(1, n + m - 2)\right\}
+  \ra D = \frac{2}{n(n+1)} + \frac{6}{m(m+1)(2m + 1)} \ra \]
+  \[  \frac{n + m - 2}{\frac{2}{n(n+1)} + \frac{6}{m(m+1)(2m + 1)}} \frac{\left(\frac{2}{n(n+1)} \sum_{i = 1}^n \frac{X_i}{i} + \frac{6}{m(m+1)(2m + 1)} \sum_{j = 1}^m jY_j - 1\right)^2}{\sum_{k = 1}^n \frac{1}{k}\left(X_k - \frac{2}{n(n + 1)}\sum_{i = 1}^n \frac{X_i}{i}\right)^2 + \sum_{p = 1}^m \left(Y_p - \frac{6p}{m(m + 1)(2m + 1)}\sum_{j = 1}^m jY_j\right)^2} \sim \] \[F(1, n + m -2) \ra
+  S_F = \Biggl\{\frac{\left(\frac{2}{n(n+1)} \sum_{i = 1}^n \frac{X_i}{i} + \frac{6}{m(m+1)(2m + 1)} \sum_{j = 1}^m jY_j - 1\right)^2}{\sum_{k = 1}^n \frac{1}{k}\left(X_k - \frac{2}{n(n + 1)}\sum_{i = 1}^n \frac{X_i}{i}\right)^2 + \sum_{p = 1}^m \left(Y_p - \frac{6p}{m(m + 1)(2m + 1)}\sum_{j = 1}^m jY_j\right)^2}  \ge \] \[ \frac{\frac{2}{n(n+1)} + \frac{6}{m(m+1)(2m + 1)}}{n + m - 2}f_{1 - \alpha}(1, n + m - 2)\Biggr\}
   \]
   }
   \problem{
